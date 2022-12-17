@@ -10,7 +10,7 @@ export default async function updateTheList(input) {
     data.append('id', input.id)
     var config = {
         method: 'post',
-        url: 'http://localhost:8081/updateList',
+        url: 'http://192.198.84.243:8081/updateList',
         headers: {
         },
         data: data
