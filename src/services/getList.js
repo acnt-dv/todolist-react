@@ -5,7 +5,7 @@ export default async function getList(){
     let test = 'test'
     let config = {
         method: 'get',
-        url: 'http://localhost:8081/getList',
+        url: 'http://192.198.84.243:8081/getList',
         headers: { }
     };
 
