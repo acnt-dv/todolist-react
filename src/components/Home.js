@@ -52,8 +52,8 @@ function Home() {
 
     return (
         <div className="center-div">
-            <h1>To-Do List</h1>
             <div className="center-div-col">
+                {/* <h1>To-Do List</h1> */}
                 <table id="items">
                     <tr>
                         <th>Done</th>
@@ -81,12 +81,19 @@ function Home() {
                         </tr>
                     )}
                 </table>
-
                 <div className="center-div-row">
+                    <div className="submitionform">
+                    <input className="" value={newItemValue} onChange={e => {setBody(e.target.value); setNewItemValue(e.target.value)}}></input>
+                        <button onClick={() => addToList()}>&#43;</button>
+                    </div>
+                </div>
+                {/* <div className="center-div-row">
+                    <div className="full">
                     <input className="textbox" value={newItemValue} onChange={e => {setBody(e.target.value); setNewItemValue(e.target.value)}}></input>
                     <button className="submitBtn" onClick={() => addToList()}>&#43;</button>
-                    {/* <input className="width-md textbox" onChange={e => setTitle(e.target.value)}></input> */}
-                </div>
+                    </div>
+                    { <input className="width-md textbox" onChange={e => setTitle(e.target.value)}></input> }
+                </div> */}
             </div>
         </div>
     );
