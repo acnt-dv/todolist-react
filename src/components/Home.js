@@ -15,6 +15,7 @@ function Home() {
         "done": null,
         "id": null
     });
+    let [newItemValue, setNewItemValue] = useState('');
 
     async function updateList() {
         let myList = JSON.parse(await getList());
@@ -22,6 +23,8 @@ function Home() {
     }
 
     async function addToList() {
+        setNewItemValue('');
+
         var data = ({
             "title": title,
             "body": body,
@@ -80,8 +83,8 @@ function Home() {
                 </table>
 
                 <div className="center-div-row">
-                    <input className="width-lg textbox" onChange={e => setBody(e.target.value)}></input>
-                    <button className="submitBtn" onClick={() => addToList()}>+</button>
+                    <input className="textbox" value={newItemValue} onChange={e => {setBody(e.target.value); setNewItemValue(e.target.value)}}></input>
+                    <button className="submitBtn" onClick={() => addToList()}>&#43;</button>
                     {/* <input className="width-md textbox" onChange={e => setTitle(e.target.value)}></input> */}
                 </div>
             </div>

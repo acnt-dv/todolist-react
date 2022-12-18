@@ -13,30 +13,33 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-width: 50%;
+  min-width: 75%;
   min-height: 75vh;
   padding: 25px;
 }
 
 .center-div-col {
   display: flex;
+  position: relative;
   flex-direction: column;
   flex-wrap: wrap;
   /* justify-content: center; */
   /* align-items: ; */
   text-align: center;
-  min-width: 50%;
+  min-width: 75%;
   height: 50vh;
-  padding: 25px;
-  overflow-y: scroll;
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-top: 2%;
+  overflow-y: auto;
   background-color: ghostwhite;
 }
 
 .center-div-row {
   position: absolute;
-  width:48%;
-  margin-left: 5.5%;
-  bottom: 30%;
+  width: 75%;
+  right: 5%;
+  bottom: 20px;
   align-items: center;
 }
 
@@ -59,6 +62,8 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
+  border: 1px solid #04AA6D;
+  padding: 12px;
   background-color: #04AA6D;
   color: white;
 }
@@ -79,26 +84,25 @@
 }
 
 .textbox {
+  width: 95%;
   height: 35px;
   border: none;
   background-color: white;
   border-radius: 5px;
   border: 0.1px solid;
   border-color: #04AA6D;
-  padding: 0px;
   box-shadow: 5px 10px 18px #888888;
 }
 
 .submitBtn {
-  width: 35px;
-  height: 35.5px;
-  position: absolute;
-  margin-left: -35px;
+  width: 36px;
+  height: 37px;
+  margin-left: -36px;
   background-color: #04AA6D;
   border: 0.1px solid;
   border-color: #04AA6D;
   border: none;
   border-radius: 5px;
-  color: #ddd;
-  font-size: x-large;
+  color: #FFF;
+  /* font-size: xx-large; */
 }

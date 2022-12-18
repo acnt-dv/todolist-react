@@ -7,14 +7,15 @@ export default async function insertItemToList(input) {
     data.append('title', input.title);
     data.append('body', input.body);
     data.append('done', input.done);
+    data.append('id', input.id)
     var config = {
         method: 'post',
-        url: 'http://192.168.84.243:8081/insertIntoList',
+        url: 'http://192.198.84.243:8081/insertIntoList',
         headers: {
         },
         data: data
     };
-
+    console.log('update config', config);
     await axios(config)
         .then(function (response) {
             response = JSON.stringify(response.data);

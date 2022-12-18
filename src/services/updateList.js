@@ -15,7 +15,7 @@ export default async function updateTheList(input) {
         },
         data: data
     };
-
+    console.log('update config', config);
     await axios(config)
         .then(function (response) {
             response = JSON.stringify(response.data);
