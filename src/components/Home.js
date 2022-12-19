@@ -101,7 +101,7 @@ function Home() {
                     <div className="table-body">
                         {list && list.map(x =>
                             <tr key={x.id} className="container-fluid" >
-                                <td style={{minWidth: '106px'}}>
+                                <td style={{ minWidth: '106px' }}>
                                     <input
                                         type={'checkbox'}
                                         checked={x.done === 'true' ? true : false}
@@ -132,7 +132,11 @@ function Home() {
                         )}
                     </div>
                 </table>
-                {!isArchieved &&
+                {isArchieved ?
+                    <div className="center-div-row">
+                         <span className="fa text-danger trashBtn left-stick d-flex justify-content-start" onClick={() => {}}>&#xf014;{/*&#94;*/}</span>
+                    </div> 
+                    :
                     <div className="center-div-row">
                         <div className="submitionform">
                             <input value={newItemValue} onChange={e => { setBody(e.target.value); setNewItemValue(e.target.value) }}></input>
