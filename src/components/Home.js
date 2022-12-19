@@ -35,6 +35,14 @@ function Home() {
         }
     }
 
+    function deleteAllItems() {
+        list.forEach(element => {
+            deleteEntry(element.id);
+        });
+        //
+        updateList(true);
+    }
+
     async function addToList() {
         setNewItemValue('');
 
@@ -134,8 +142,8 @@ function Home() {
                 </table>
                 {isArchieved ?
                     <div className="center-div-row">
-                         <span className="fa text-danger trashBtn left-stick d-flex justify-content-start" onClick={() => {}}>&#xf014;{/*&#94;*/}</span>
-                    </div> 
+                        <p className="fa trashBtn left-stick d-flex" onClick={() => deleteAllItems()}>&#xf014;{/*&#94;*/}</p>
+                    </div>
                     :
                     <div className="center-div-row">
                         <div className="submitionform">
