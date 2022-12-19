@@ -3,7 +3,8 @@ import insertItemToList from "../services/addToList";
 import getList from "../services/getList";
 import * as FormData from "form-data";
 import updateTheList from "../services/updateList";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Table } from 'reactstrap';
+import deleteEntry from "../services/deleteFromList";
 
 function Home() {
 
@@ -68,64 +69,68 @@ function Home() {
             <div className="center-div-col">
                 {/* <h1>To-Do List</h1> */}
                 <table id="items">
-                    <tr>
-                        <th style={{ textAlign: 'center' }} onClick={() => updateDoneList()}>وضعیت</th>
-                        {/* <th>Title</th> */}
-                        <th className="w-100">
-                            <div className="row w-100">
-                                <div className="col col-11">
-                                    <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                        <DropdownToggle style={{ backgroundColor: 'none', width: '125px' }} caret>
-                                            {listTiltle}
-                                        </DropdownToggle>
-                                        <DropdownMenu>
-                                            {/* <DropdownItem header>Header</DropdownItem> */}
-                                            {/* <DropdownItem disabled>Action</DropdownItem> */}
-                                            <DropdownItem onClick={() => { updateList(false); }} style={{ textAlign: 'right' }}>لیست خرید</DropdownItem>
-                                            <DropdownItem divider />
-                                            <DropdownItem onClick={() => { updateList(true); }} style={{ textAlign: 'right' }}>آرشیو</DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
-                                </div>
-                                <div className="col col-1">
-                                    <div className="d-flex justify-content-end align-items-center left-stick">
-                                        <button className="fs-4 text-white" onClick={() => { updateList(false); }}>&#9851;</button>
+                    <div>
+                        <tr>
+                            <th style={{ textAlign: 'center' }} onClick={() => updateDoneList()}>وضعیت</th>
+                            {/* <th>Title</th> */}
+                            <th className="w-100">
+                                <div className="row w-100">
+                                    <div className="col col-10">
+                                        <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
+                                            <DropdownToggle style={{ backgroundColor: 'none', width: '125px' }} caret>
+                                                {listTiltle}
+                                            </DropdownToggle>
+                                            <DropdownMenu>
+                                                {/* <DropdownItem header>Header</DropdownItem> */}
+                                                {/* <DropdownItem disabled>Action</DropdownItem> */}
+                                                <DropdownItem onClick={() => { updateList(false); }} style={{ textAlign: 'right' }}>لیست خرید</DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem onClick={() => { updateList(true); }} style={{ textAlign: 'right' }}>آرشیو</DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
+                                    </div>
+                                    <div className="col col-2">
+                                        <div className="d-flex justify-content-end align-items-center left-stick">
+                                            <button className="fa fs-4 text-white" onClick={() => { updateList(false); }}>&#xf021;</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </th>
-                    </tr>
-                    {list && list.map(x =>
-                        <tr key={x.id} >
-                            <td className="width-sm">
-                                <input
-                                    type={'checkbox'}
-                                    checked={x.done === 'true' ? true : false}
-                                    onChange={e => setIsDone(
-                                        {
-                                            "title": x.title,
-                                            "body": x.body,
-                                            "done": e.target.checked,
-                                            "id": parseInt(x.id)
-                                        })
-                                    }>
-                                </input>
-                            </td>
-                            {/* <td className="width-md">{x.title}</td> */}
-                            <td className="width-lg">
-                                <div className="d-flex justify-content-between">
-                                    {x.body}
-                                    {isArchieved &&
-                                        <button
-                                            className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
-                                            style={{ width: '15px', height: '15px' }}
-                                            onClick={() => { updateList(false); }}>
-                                            &#10006;
-                                        </button>}
-                                </div>
-                            </td>
+                            </th>
                         </tr>
-                    )}
+                    </div>
+                    <div className="table-body">
+                        {list && list.map(x =>
+                            <tr key={x.id} className="container-fluid" >
+                                <td style={{minWidth: '106px'}}>
+                                    <input
+                                        type={'checkbox'}
+                                        checked={x.done === 'true' ? true : false}
+                                        onChange={e => setIsDone(
+                                            {
+                                                "title": x.title,
+                                                "body": x.body,
+                                                "done": e.target.checked,
+                                                "id": parseInt(x.id)
+                                            })
+                                        }>
+                                    </input>
+                                </td>
+                                {/* <td className="width-md">{x.title}</td> */}
+                                <td className="w-100">
+                                    <div className="d-flex justify-content-between">
+                                        {x.body}
+                                        {isArchieved &&
+                                            <button
+                                                className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
+                                                style={{ width: '15px', height: '15px' }}
+                                                onClick={() => { deleteEntry({ id: x.id }); updateList(true); }}>
+                                                &#10006;
+                                            </button>}
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
+                    </div>
                 </table>
                 {!isArchieved &&
                     <div className="center-div-row">
