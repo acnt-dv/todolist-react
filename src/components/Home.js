@@ -90,7 +90,7 @@ function Home() {
                                         </Dropdown>
                                     </div>
                                     <div className="col col-2">
-                                        <div className="d-flex justify-content-end align-items-center left-stick">
+                                        <div className="d-flex justify-content-end align-items-center h-100 left-stick">
                                             <button className="fa fs-4 text-white" onClick={() => { updateList(false); }}>&#xf021;</button>
                                         </div>
                                     </div>
