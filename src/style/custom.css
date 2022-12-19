@@ -175,3 +175,9 @@ button {
   color:white;
   font-size: xx-large;
 }
+
+.dropDown {
+  background-color: red;
+  direction: ltr;
+  text-align: left;
+}
