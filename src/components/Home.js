@@ -71,11 +71,11 @@ function Home() {
                     <tr>
                         <th style={{ textAlign: 'center' }} onClick={() => updateDoneList()}>وضعیت</th>
                         {/* <th>Title</th> */}
-                        <th>
+                        <th className="w-100">
                             <div className="row w-100">
-                                <div className="col col-11">
+                                <div className="col col-10">
                                     <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                        <DropdownToggle caret>
+                                        <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
                                             {listTiltle}
                                         </DropdownToggle>
                                         <DropdownMenu>
@@ -87,8 +87,11 @@ function Home() {
                                         </DropdownMenu>
                                     </Dropdown>
                                 </div>
-                                <div className="col col-1">
-                                    <button className="fs-4" onClick={() => { updateList(false); }}>&#9842;</button>
+                                <div className="col col-2">
+                                    <div className="d-flex justify-content-end align-items-center left-stick">
+                                        {isArchieved && <button className="fs-4" onClick={() => { updateList(false); }}>&#10006;</button>}
+                                        <button className="fs-4" onClick={() => { updateList(false); }}>&#9851;</button>
+                                    </div>
                                 </div>
                             </div>
                         </th>
@@ -114,7 +117,7 @@ function Home() {
                         </tr>
                     )}
                 </table>
-                {isArchieved ? null :
+                {!isArchieved &&
                     <div className="center-div-row">
                         <div className="submitionform">
                             <input value={newItemValue} onChange={e => { setBody(e.target.value); setNewItemValue(e.target.value) }}></input>

@@ -68,7 +68,8 @@
 #items td, #items th {
   text-align: right;
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 18px;
+  padding-right: 24px;
 }
 
 #items tr:nth-child(even){background-color: #f2f2f2;}
@@ -78,9 +79,13 @@
 #items th {
   text-align: right;
   border: 1px solid ghostwhite;  
-  padding: 24px;
+  padding: 24px;  
   background-color: #04AA6D;
   color: white;
+}
+
+.left-stick {
+  margin-left: -45px;
 }
 
 .width-sm {
