@@ -1,3 +1,18 @@
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 500;
+  src: url(../../public/fonts/IRANSans/IRANSans-web.eot);
+  src: url(../../public/fonts/IRANSans/IRANSans-web.eot?#iefix) format("embedded-opentype"),
+      url(../../public/fonts/IRANSans/IRANSans-web.woff2) format("woff2"),
+      url(../../public/fonts/IRANSans/IRANSans-web.woff) format("woff"),
+      url(../../public/fonts/IRANSans/IRANSans-web.ttf) format("truetype")
+}
+
+* {
+  font-family: IRANSans, sans-serif;
+}
+
 .center-screen {
   display: flex;
   justify-content: center;
@@ -20,6 +35,7 @@
 
 .center-div-col {
   display: flex;
+  direction: rtl;
   position: relative;
   flex-direction: column;
   flex-wrap: wrap;
@@ -38,8 +54,8 @@
 .center-div-row {
   position: absolute;
   width: 75%;
-  right: 8%;
-  bottom: 6%;
+  right: 2%;
+  bottom: 4%;
   align-items: center;
 }
 
@@ -50,6 +66,7 @@
 }
 
 #items td, #items th {
+  text-align: right;
   border: 1px solid #ddd;
   padding: 12px;
 }
@@ -59,8 +76,8 @@
 #items tr:hover {background-color: #ddd;}
 
 #items th {
-  text-align: left;
-  border: 1px solid #04AA6D;  
+  text-align: right;
+  border: 1px solid ghostwhite;  
   padding: 24px;
   background-color: #04AA6D;
   color: white;
@@ -121,6 +138,7 @@
 
 .submitionform {
   display:flex;
+  direction: ltr;
 
   height: 45px;
 
@@ -138,7 +156,9 @@ input {
   color: #888888;
   /* flex-grow:2; */
   width: 100%;
+  padding-right: 10px;
   font-size: larger;
+  text-align: right;
 }
 
 input:focus {

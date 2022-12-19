@@ -56,9 +56,9 @@ function Home() {
                 {/* <h1>To-Do List</h1> */}
                 <table id="items">
                     <tr>
-                        <th>Done</th>
-                        <th>Title</th>
-                        <th>Body</th>
+                        <th style={{textAlign: 'center'}}>&#10004;</th>
+                        {/* <th>Title</th> */}
+                        <th>عنوان</th>
                     </tr>
                     {list && list.map(x =>
                         <tr key={x.id} >
@@ -76,24 +76,17 @@ function Home() {
                                     }>
                                 </input>
                             </td>
-                            <td className="width-md">{x.title}</td>
+                            {/* <td className="width-md">{x.title}</td> */}
                             <td className="width-lg">{x.body}</td>
                         </tr>
                     )}
                 </table>
                 <div className="center-div-row">
                     <div className="submitionform">
-                    <input className="" value={newItemValue} onChange={e => {setBody(e.target.value); setNewItemValue(e.target.value)}}></input>
-                        <button onClick={() => addToList()}>&#43;</button>
+                    <input value={newItemValue} onChange={e => {setBody(e.target.value); setNewItemValue(e.target.value)}}></input>
+                        <button onClick={() => addToList()}>&#8682;{/*&#94;*/}</button>
                     </div>
                 </div>
-                {/* <div className="center-div-row">
-                    <div className="full">
-                    <input className="textbox" value={newItemValue} onChange={e => {setBody(e.target.value); setNewItemValue(e.target.value)}}></input>
-                    <button className="submitBtn" onClick={() => addToList()}>&#43;</button>
-                    </div>
-                    { <input className="width-md textbox" onChange={e => setTitle(e.target.value)}></input> }
-                </div> */}
             </div>
         </div>
     );
