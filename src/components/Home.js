@@ -73,9 +73,9 @@ function Home() {
                         {/* <th>Title</th> */}
                         <th className="w-100">
                             <div className="row w-100">
-                                <div className="col col-10">
+                                <div className="col col-11">
                                     <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                        <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
+                                        <DropdownToggle style={{ backgroundColor: 'none', width: '125px' }} caret>
                                             {listTiltle}
                                         </DropdownToggle>
                                         <DropdownMenu>
@@ -87,10 +87,9 @@ function Home() {
                                         </DropdownMenu>
                                     </Dropdown>
                                 </div>
-                                <div className="col col-2">
+                                <div className="col col-1">
                                     <div className="d-flex justify-content-end align-items-center left-stick">
-                                        {isArchieved && <button className="fs-4" onClick={() => { updateList(false); }}>&#10006;</button>}
-                                        <button className="fs-4" onClick={() => { updateList(false); }}>&#9851;</button>
+                                        <button className="fs-4 text-white" onClick={() => { updateList(false); }}>&#9851;</button>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +112,18 @@ function Home() {
                                 </input>
                             </td>
                             {/* <td className="width-md">{x.title}</td> */}
-                            <td className="width-lg">{x.body}</td>
+                            <td className="width-lg">
+                                <div className="d-flex justify-content-between">
+                                    {x.body}
+                                    {isArchieved &&
+                                        <button
+                                            className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
+                                            style={{ width: '15px', height: '15px' }}
+                                            onClick={() => { updateList(false); }}>
+                                            &#10006;
+                                        </button>}
+                                </div>
+                            </td>
                         </tr>
                     )}
                 </table>
