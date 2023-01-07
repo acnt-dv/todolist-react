@@ -10,7 +10,7 @@ export default async function insertItemToList(input) {
     data.append('id', input.id)
     var config = {
         method: 'post',
-        url: 'http://192.198.84.243:8081/insertIntoList',
+        url: 'http://162.248.243.38:8081/insertIntoList',
         headers: {
         },
         data: data
