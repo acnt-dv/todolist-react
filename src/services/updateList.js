@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as FormData from "form-data";
+import { SERVER_ADDRESS } from '../config';
 
 export default async function updateTheList(input) {
     let response = '';
@@ -10,7 +11,7 @@ export default async function updateTheList(input) {
     data.append('id', input.id)
     var config = {
         method: 'post',
-        url: 'http://162.248.243.38:8081/updateList',
+        url: `${SERVER_ADDRESS}/updateList`,
         headers: {
         },
         data: data

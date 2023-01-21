@@ -7,7 +7,7 @@ export default async function deleteEntry(input) {
     data.append('id', input.id);
     var config = {
         method: 'post',
-        url: 'http://162.248.243.38:8081/deleteFromList',
+        url: `${SERVER_ADDRESS}/deleteFromList`,
         headers: {
         },
         data: data
