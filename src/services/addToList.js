@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as FormData from "form-data";
+import { SERVER_ADDRESS } from '../config';
 
 export default async function insertItemToList(input) {
     let response = '';

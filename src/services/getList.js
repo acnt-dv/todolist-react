@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { SERVER_ADDRESS } from '../config';
 
 export default async function getList(){
     let test = 'test'
