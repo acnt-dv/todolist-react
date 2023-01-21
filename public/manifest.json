@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "to-do",
+  "name": "To-Do List Application",
+  "description": "Awesome application that will help you manage your daily tasks.",
+  "categories": ["schedule"],
   "icons": [
     {
       "src": "favicon.ico",
