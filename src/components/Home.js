@@ -37,7 +37,7 @@ function Home() {
 
     function deleteAllItems() {
         list.forEach(element => {
-            deleteEntry(element.id);
+            deleteEntry(element);
         });
         //
         updateList(true);
