@@ -4,34 +4,7 @@ import getList from "../services/getList";
 import updateTheList from "../services/updateList";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import deleteEntry from "../services/deleteFromList";
-
-const CATEGORIES = {
-    DAILY_LIST: 0,
-    SHOP_LIST: 1,
-    TARGET_LIST: 2,
-    BOOK_LIST: 3,
-    ARCHIVE_LIST: 4,
-    getCategoryName: (input) => {
-        for (let [key, value] of Object.entries(CATEGORIES))
-            if (input === value)
-                return key;
-        return false;
-    }
-}
-
-const FA_CATEGORIES = {
-    DAILY_LIST: 'لیست روزانه',
-    SHOP_LIST: 'لیست خرید',
-    TARGET_LIST: 'لیست اهداف',
-    BOOK_LIST: 'لیست کتب',
-    ARCHIVE_LIST: 'آرشیو',
-    getFaCategoryName: (input) => {
-        for (let [key, value] of Object.entries(FA_CATEGORIES))
-            if (input === key)
-                return value;
-        return false;
-    }
-}
+import {CATEGORIES, FA_CATEGORIES} from "../utilities/enums/categories";
 
 function Home() {
     const [listTitle, setListTitle] = useState('لیست خرید');
@@ -51,9 +24,22 @@ function Home() {
         "id": null
     });
 
-    async function updateList(category) {
+    async function addToList(category) {
         setIsLoading(true);
+        setNewItemValue('');
 
+        let data = ({
+            "title": title,
+            "body": body,
+            "done": false,
+            "category": category
+        });
+
+        await insertItemToList(data);
+        updateList(category).then(() => setIsLoading(false));
+    }
+
+    async function updateList(category) {
         let myList = JSON.parse(await getList());
 
         if (category === true || category === CATEGORIES.ARCHIVE_LIST) {
@@ -65,46 +51,36 @@ function Home() {
             setIsArchived(false);
             setListTitle(FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(category)));
         }
-
-        setIsLoading(false);
     }
 
-    function deleteAllItems(category) {
+    function deleteAllItems() {
+        setIsLoading(true);
+
         list.forEach(element => {
             deleteEntry(element);
         });
-        //
-        updateList(true);
+
+        updateList(true).then(() => setIsLoading(false));
     }
 
-    async function addToList(category) {
-        setNewItemValue('');
-
-        let data = ({
-            "title": title,
-            "body": body,
-            "done": false,
-            "category": category
-        });
-
-        await insertItemToList(data);
-        updateList(category);
+    function changeList(category) {
+        setIsLoading(true);
+        setActiveList(category);
+        updateList(category).then(() => setIsLoading(false));
     }
 
-    async function updateDoneList() {
-        await updateTheList(isDone);
-        updateList(activeList);
-    }
+    useEffect(() => {
+        setIsLoading(true);
+        updateList(CATEGORIES.DAILY_LIST).then(() => setIsLoading(false));
+    }, []);
 
     useEffect(() => {
         if (isDone.id != null) {
-            updateDoneList();
+            setIsLoading(true);
+            updateTheList(isDone).then(() =>
+                updateList(activeList).then(() => setIsLoading(false)));
         }
-    }, [isDone])
-
-    useEffect(() => {
-        updateList(CATEGORIES.DAILY_LIST);
-    }, [])
+    }, [isDone]);
 
     return (
         <div className="center-div">
@@ -112,7 +88,7 @@ function Home() {
                 <table id="items">
                     <div>
                         <tr>
-                            <th style={{textAlign: 'center'}} onClick={() => updateDoneList()}>وضعیت</th>
+                            <th style={{textAlign: 'center'}}>وضعیت</th>
                             <th className="w-100">
                                 <div className="row w-100">
                                     <div className="col col-10">
@@ -121,21 +97,18 @@ function Home() {
                                                 {listTitle}
                                             </DropdownToggle>
                                             <DropdownMenu>
-                                                {/* <DropdownItem header>Header</DropdownItem> */}
-                                                {/* <DropdownItem disabled>Action</DropdownItem> */}
                                                 {Object.entries(CATEGORIES).map((item, index) =>
                                                     <>
-                                                        {index < Object.entries(CATEGORIES).length -1 &&
-                                                        <DropdownItem onClick={() => {
-                                                            setActiveList(index);
-                                                            updateList(index);
+                                                        {index < Object.entries(CATEGORIES).length - 1 &&
+                                                            <DropdownItem onClick={() => {
+                                                                changeList(index);
+                                                            }
+                                                            } style={{textAlign: 'right'}}>
+                                                                {FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(index))}
+                                                            </DropdownItem>
                                                         }
-                                                        } style={{textAlign: 'right'}}>
-                                                            {FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(index))}
-                                                        </DropdownItem>
-                                                        }
-                                                        {index < Object.entries(CATEGORIES).length -2 &&
-                                                        <DropdownItem divider/>
+                                                        {index < Object.entries(CATEGORIES).length - 2 &&
+                                                            <DropdownItem divider/>
                                                         }
                                                     </>
                                                 )}
@@ -145,7 +118,7 @@ function Home() {
                                     <div className="col col-2">
                                         <div className="d-flex justify-content-end align-items-center h-100 left-stick">
                                             <button className="fa fs-4 bg-transparent text-white" onClick={() => {
-                                                updateList(activeList);
+                                                changeList(activeList);
                                             }}>&#xf021;</button>
                                         </div>
                                     </div>
@@ -175,15 +148,16 @@ function Home() {
                                         <div className="d-flex justify-content-between">
                                             {x.body}
                                             {isArchived &&
-                                            <button
-                                                className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
-                                                style={{width: '15px', height: '15px'}}
-                                                onClick={() => {
-                                                    deleteEntry({id: x.id});
-                                                    updateList(true);
-                                                }}>
-                                                &#10006;
-                                            </button>}
+                                                <button
+                                                    className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
+                                                    style={{width: '15px', height: '15px'}}
+                                                    onClick={() => {
+                                                        setIsLoading(true);
+                                                        deleteEntry({id: x.id});
+                                                        updateList(true).then(() => setIsLoading(false));
+                                                    }}>
+                                                    &#10006;
+                                                </button>}
                                         </div>
                                     </td>
                                 </tr>
