@@ -18,6 +18,7 @@ function Home() {
     const [dropdownOpen, setDropdownOpen] = useState();
     const [activeList, setActiveList] = useState(CATEGORIES.DAILY_LIST);
     const [isLoading, setIsLoading] = useState(false);
+    const [isDisable, setIsDisable] = useState(false);
     const [isDone, setIsDone] = useState({
         "title": null,
         "body": null,
@@ -110,6 +111,10 @@ function Home() {
         }
     }, [isDone]);
 
+    useEffect(() => {
+        setIsDisable(isLoading);
+    }, [isLoading]);
+
     return (
         <div className="center-div" onKeyPress={(e) => {
             handleKeyPress(e)
@@ -120,7 +125,8 @@ function Home() {
                         <th className="w-100">
                             <div className="row w-100">
                                 <div className="col col-12">
-                                    <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
+                                    <Dropdown disabled={isDisable} isOpen={dropdownOpen}
+                                              toggle={() => setDropdownOpen(!dropdownOpen)}>
                                         <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
                                             {listTitle}
                                         </DropdownToggle>
@@ -146,54 +152,58 @@ function Home() {
                             </div>
                         </th>
                     </tr>
-                    {isLoading ? <div className={`spinner-border text-info mt-5`} role="status"/> :
-
-                        <ReactPullToRefresh onRefresh={handleRefresh}>
-                            {list && list.map((item, index) =>
-                                <SwipeToDelete
-                                    onDelete={() => handleSwipeToDelete(item)} // required
-                                    // optional
-                                    height={50} // default
-                                    transitionDuration={250} // default
-                                    deleteWidth={75} // default
-                                    deleteThreshold={75} // default
-                                    showDeleteAction={true} //default
-                                    deleteColor="rgba(252, 58, 48, 1.00)" // default
-                                    deleteText="Done" // default
-                                    // deleteComponent={<DeleteComponent/>} // not default
-                                    disabled={false} // default
-                                    id="swiper-1" // not default
-                                    className="my-swiper" // not default
-                                    rtl={false} // default
-                                    // onDeleteConfirm={(onSuccess, onCancel) => {
-                                    //     // not default - default is null
-                                    //     if (window.confirm("Do you really want to delete this item ?")) {
-                                    //         onSuccess();
-                                    //     } else {
-                                    //         onCancel();
-                                    //     }
-                                    // }}
-                                >
-                                    <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
-                                        <td className="w-100">
-                                            {item.body}
-                                            {isArchived &&
-                                                <button
-                                                    className="btn btn-transparent text-light fs-6 m-1 d-flex justify-content-start align-items-center text-center"
-                                                    style={{width: '15px', height: '15px'}}
-                                                    onClick={() => {
-                                                        setIsLoading(true);
-                                                        deleteEntry({id: item.id});
-                                                        updateList(true).then(() => setIsLoading(false));
-                                                    }}>
-                                                    &#10006;
-                                                </button>}
-                                        </td>
-                                    </tr>
-                                </SwipeToDelete>
-                            )}
-                        </ReactPullToRefresh>
+                    {isLoading &&
+                        <div className='loaderStyle'>
+                            <div className={`spinner-border spinner-border-lg  mt-5`} style={{width: '125px', height: '125px', color: '#046D'}} role="status"/>
+                        </div>
                     }
+
+                    <ReactPullToRefresh onRefresh={handleRefresh}>
+                        {list && list.map((item, index) =>
+                            <SwipeToDelete
+                                onDelete={() => handleSwipeToDelete(item)} // required
+                                // optional
+                                height={50} // default
+                                transitionDuration={250} // default
+                                deleteWidth={75} // default
+                                deleteThreshold={75} // default
+                                showDeleteAction={true} //default
+                                deleteColor="rgba(252, 58, 48, 1.00)" // default
+                                deleteText="Done" // default
+                                // deleteComponent={<DeleteComponent/>} // not default
+                                disabled={false} // default
+                                id="swiper-1" // not default
+                                className="my-swiper" // not default
+                                rtl={false} // default
+                                // onDeleteConfirm={(onSuccess, onCancel) => {
+                                //     // not default - default is null
+                                //     if (window.confirm("Do you really want to delete this item ?")) {
+                                //         onSuccess();
+                                //     } else {
+                                //         onCancel();
+                                //     }
+                                // }}
+                            >
+                                <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
+                                    <td className="w-100">
+                                        {item.body}
+                                        {/*{isArchived &&*/}
+                                        {/*    <button*/}
+                                        {/*        disabled={}*/}
+                                        {/*        className="btn btn-transparent text-light fs-6 m-1 d-flex justify-content-start align-items-center text-center"*/}
+                                        {/*        style={{width: '15px', height: '15px'}}*/}
+                                        {/*        onClick={() => {*/}
+                                        {/*            setIsLoading(true);*/}
+                                        {/*            deleteEntry({id: item.id});*/}
+                                        {/*            updateList(true).then(() => setIsLoading(false));*/}
+                                        {/*        }}>*/}
+                                        {/*        &#10006;*/}
+                                        {/*    </button>}*/}
+                                    </td>
+                                </tr>
+                            </SwipeToDelete>
+                        )}
+                    </ReactPullToRefresh>
                 </table>
                 {isArchived ?
                     <div className="center-div-row">
@@ -203,11 +213,12 @@ function Home() {
                     :
                     <div className="center-div-row">
                         <div className="submissionForm">
-                            <input value={newItemValue} onChange={e => {
+                            <input disabled={isDisable} value={newItemValue} onChange={e => {
                                 setBody(e.target.value);
                                 setNewItemValue(e.target.value)
                             }}/>
-                            <button onClick={() => addToList(activeList)}>&#8682;{/*&#94;*/}</button>
+                            <button disabled={isDisable}
+                                    onClick={() => addToList(activeList)}>&#8682;{/*&#94;*/}</button>
                         </div>
                     </div>
                 }
