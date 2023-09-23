@@ -148,7 +148,6 @@ function Home() {
                     </tr>
                     {isLoading ? <div className={`spinner-border text-info mt-5`} role="status"/> :
 
-
                         <ReactPullToRefresh onRefresh={handleRefresh}>
                             {list && list.map((item, index) =>
                                 <SwipeToDelete
@@ -175,7 +174,7 @@ function Home() {
                                     //     }
                                     // }}
                                 >
-                                    <tr key={item.id} className={index%2===0 ? "tableOdd" : "tableNormal"}>
+                                    <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
                                         <td className="w-100">
                                             {item.body}
                                             {isArchived &&
@@ -194,7 +193,6 @@ function Home() {
                                 </SwipeToDelete>
                             )}
                         </ReactPullToRefresh>
-
                     }
                 </table>
                 {isArchived ?
