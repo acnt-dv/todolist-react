@@ -6,6 +6,7 @@ import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import deleteEntry from "../services/deleteFromList";
 import {CATEGORIES, FA_CATEGORIES} from "../utilities/enums/categories";
 import ReactPullToRefresh from 'react-pull-to-refresh';
+import SwipeToDelete from 'react-swipe-to-delete-ios';
 
 function Home() {
     const [listTitle, setListTitle] = useState('لیست خرید');
@@ -82,6 +83,20 @@ function Home() {
         updateList(activeList).then(() => setIsLoading(false));
     }
 
+    function handleSwipeToDelete(x) {
+        if (isArchived) {
+            deleteEntry(x)
+        } else {
+            setIsDone(
+                {
+                    "title": x.title,
+                    "body": x.body,
+                    "done": true,
+                    "id": parseInt(x.id)
+                })
+        }
+    }
+
     useEffect(() => {
         setIsLoading(true);
         updateList(CATEGORIES.DAILY_LIST).then(() => setIsLoading(false));
@@ -101,78 +116,85 @@ function Home() {
         }}>
             <div className="center-div-col">
                 <table id="items">
-                    <div>
-                        <tr>
-                            <th style={{textAlign: 'center'}}>وضعیت</th>
-                            <th className="w-100">
-                                <div className="row w-100">
-                                    <div className="col col-10">
-                                        <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                            <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
-                                                {listTitle}
-                                            </DropdownToggle>
-                                            <DropdownMenu>
-                                                {Object.entries(CATEGORIES).map((item, index) =>
-                                                    <>
-                                                        {index < Object.entries(CATEGORIES).length - 1 &&
-                                                            <DropdownItem onClick={() => {
-                                                                changeList(index);
-                                                            }
-                                                            } style={{textAlign: 'right'}}>
-                                                                {FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(index))}
-                                                            </DropdownItem>
+                    <tr>
+                        <th className="w-100">
+                            <div className="row w-100">
+                                <div className="col col-12">
+                                    <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
+                                        <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
+                                            {listTitle}
+                                        </DropdownToggle>
+                                        <DropdownMenu>
+                                            {Object.entries(CATEGORIES).map((item, index) =>
+                                                <>
+                                                    {index < Object.entries(CATEGORIES).length - 1 &&
+                                                        <DropdownItem onClick={() => {
+                                                            changeList(index);
                                                         }
-                                                        {index < Object.entries(CATEGORIES).length - 2 &&
-                                                            <DropdownItem divider/>
-                                                        }
-                                                    </>
-                                                )}
-                                            </DropdownMenu>
-                                        </Dropdown>
-                                    </div>
+                                                        } style={{textAlign: 'right'}}>
+                                                            {FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(index))}
+                                                        </DropdownItem>
+                                                    }
+                                                    {index < Object.entries(CATEGORIES).length - 2 &&
+                                                        <DropdownItem divider/>
+                                                    }
+                                                </>
+                                            )}
+                                        </DropdownMenu>
+                                    </Dropdown>
                                 </div>
-                            </th>
-                        </tr>
-                    </div>
+                            </div>
+                        </th>
+                    </tr>
                     {isLoading ? <div className={`spinner-border text-info mt-5`} role="status"/> :
-                        <div className="table-body">
-                            <ReactPullToRefresh onRefresh={handleRefresh}>
-                                {list && list.map(x =>
-                                    <tr key={x.id} className="container-fluid">
-                                        <td style={{minWidth: '106px'}}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={x.done === 'true'}
-                                                onChange={e => setIsDone(
-                                                    {
-                                                        "title": x.title,
-                                                        "body": x.body,
-                                                        "done": e.target.checked,
-                                                        "id": parseInt(x.id)
-                                                    })
-                                                }>
-                                            </input>
-                                        </td>
+
+
+                        <ReactPullToRefresh onRefresh={handleRefresh}>
+                            {list && list.map((item, index) =>
+                                <SwipeToDelete
+                                    onDelete={() => handleSwipeToDelete(item)} // required
+                                    // optional
+                                    height={50} // default
+                                    transitionDuration={250} // default
+                                    deleteWidth={75} // default
+                                    deleteThreshold={75} // default
+                                    showDeleteAction={true} //default
+                                    deleteColor="rgba(252, 58, 48, 1.00)" // default
+                                    deleteText="Done" // default
+                                    // deleteComponent={<DeleteComponent/>} // not default
+                                    disabled={false} // default
+                                    id="swiper-1" // not default
+                                    className="my-swiper" // not default
+                                    rtl={false} // default
+                                    // onDeleteConfirm={(onSuccess, onCancel) => {
+                                    //     // not default - default is null
+                                    //     if (window.confirm("Do you really want to delete this item ?")) {
+                                    //         onSuccess();
+                                    //     } else {
+                                    //         onCancel();
+                                    //     }
+                                    // }}
+                                >
+                                    <tr key={item.id} className={index%2===0 ? "tableOdd" : "tableNormal"}>
                                         <td className="w-100">
-                                            <div className="d-flex justify-content-between">
-                                                {x.body}
-                                                {isArchived &&
-                                                    <button
-                                                        className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
-                                                        style={{width: '15px', height: '15px'}}
-                                                        onClick={() => {
-                                                            setIsLoading(true);
-                                                            deleteEntry({id: x.id});
-                                                            updateList(true).then(() => setIsLoading(false));
-                                                        }}>
-                                                        &#10006;
-                                                    </button>}
-                                            </div>
+                                            {item.body}
+                                            {isArchived &&
+                                                <button
+                                                    className="btn btn-transparent text-light fs-6 m-1 d-flex justify-content-start align-items-center text-center"
+                                                    style={{width: '15px', height: '15px'}}
+                                                    onClick={() => {
+                                                        setIsLoading(true);
+                                                        deleteEntry({id: item.id});
+                                                        updateList(true).then(() => setIsLoading(false));
+                                                    }}>
+                                                    &#10006;
+                                                </button>}
                                         </td>
                                     </tr>
-                                )}
-                            </ReactPullToRefresh>
-                        </div>
+                                </SwipeToDelete>
+                            )}
+                        </ReactPullToRefresh>
+
                     }
                 </table>
                 {isArchived ?
