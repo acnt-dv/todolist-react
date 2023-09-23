@@ -45,7 +45,7 @@ function Home() {
     async function updateList(category) {
         let myList = JSON.parse(await getList());
 
-        if (category === true || category === CATEGORIES.ARCHIVE_LIST) {
+        if (category === CATEGORIES.ARCHIVE_LIST) {
             setList(myList.filter(x => x.done === true.toString()))
             setListTitle(FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(category)));
             setIsArchived(true);
@@ -63,7 +63,7 @@ function Home() {
             deleteEntry(element);
         });
 
-        updateList(true).then(() => setIsLoading(false));
+        updateList(CATEGORIES.ARCHIVE_LIST).then(() => setIsLoading(false));
     }
 
     function changeList(category) {
