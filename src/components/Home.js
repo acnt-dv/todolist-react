@@ -5,6 +5,7 @@ import updateTheList from "../services/updateList";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import deleteEntry from "../services/deleteFromList";
 import {CATEGORIES, FA_CATEGORIES} from "../utilities/enums/categories";
+import ReactPullToRefresh from 'react-pull-to-refresh';
 
 function Home() {
     const [listTitle, setListTitle] = useState('لیست خرید');
@@ -39,13 +40,6 @@ function Home() {
         updateList(category).then(() => setIsLoading(false));
     }
 
-    function handleKeyPress(event) {
-        if (event.charCode === 13) {
-            setIsLoading(false);
-            addToList(activeList).then(() => setIsLoading(false));
-        }
-    }
-
     async function updateList(category) {
         let myList = JSON.parse(await getList());
 
@@ -74,6 +68,18 @@ function Home() {
         setIsLoading(true);
         setActiveList(category);
         updateList(category).then(() => setIsLoading(false));
+    }
+
+    function handleKeyPress(event) {
+        if (event.charCode === 13) {
+            setIsLoading(false);
+            addToList(activeList).then(() => setIsLoading(false));
+        }
+    }
+
+    async function handleRefresh() {
+        setIsLoading(true);
+        updateList(activeList).then(() => setIsLoading(false));
     }
 
     useEffect(() => {
@@ -124,53 +130,48 @@ function Home() {
                                             </DropdownMenu>
                                         </Dropdown>
                                     </div>
-                                    <div className="col col-2">
-                                        <div className="d-flex justify-content-end align-items-center h-100 left-stick">
-                                            <button className="fa fs-4 bg-transparent text-white" onClick={() => {
-                                                changeList(activeList);
-                                            }}>&#xf021;</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </th>
                         </tr>
                     </div>
                     {isLoading ? <div className={`spinner-border text-info mt-5`} role="status"/> :
                         <div className="table-body">
-                            {list && list.map(x =>
-                                <tr key={x.id} className="container-fluid">
-                                    <td style={{minWidth: '106px'}}>
-                                        <input
-                                            type={'checkbox'}
-                                            checked={x.done === 'true'}
-                                            onChange={e => setIsDone(
-                                                {
-                                                    "title": x.title,
-                                                    "body": x.body,
-                                                    "done": e.target.checked,
-                                                    "id": parseInt(x.id)
-                                                })
-                                            }>
-                                        </input>
-                                    </td>
-                                    <td className="w-100">
-                                        <div className="d-flex justify-content-between">
-                                            {x.body}
-                                            {isArchived &&
-                                                <button
-                                                    className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
-                                                    style={{width: '15px', height: '15px'}}
-                                                    onClick={() => {
-                                                        setIsLoading(true);
-                                                        deleteEntry({id: x.id});
-                                                        updateList(true).then(() => setIsLoading(false));
-                                                    }}>
-                                                    &#10006;
-                                                </button>}
-                                        </div>
-                                    </td>
-                                </tr>
-                            )}
+                            <ReactPullToRefresh onRefresh={handleRefresh}>
+                                {list && list.map(x =>
+                                    <tr key={x.id} className="container-fluid">
+                                        <td style={{minWidth: '106px'}}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={x.done === 'true'}
+                                                onChange={e => setIsDone(
+                                                    {
+                                                        "title": x.title,
+                                                        "body": x.body,
+                                                        "done": e.target.checked,
+                                                        "id": parseInt(x.id)
+                                                    })
+                                                }>
+                                            </input>
+                                        </td>
+                                        <td className="w-100">
+                                            <div className="d-flex justify-content-between">
+                                                {x.body}
+                                                {isArchived &&
+                                                    <button
+                                                        className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
+                                                        style={{width: '15px', height: '15px'}}
+                                                        onClick={() => {
+                                                            setIsLoading(true);
+                                                            deleteEntry({id: x.id});
+                                                            updateList(true).then(() => setIsLoading(false));
+                                                        }}>
+                                                        &#10006;
+                                                    </button>}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </ReactPullToRefresh>
                         </div>
                     }
                 </table>
