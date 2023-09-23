@@ -1,41 +1,75 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import insertItemToList from "../services/addToList";
 import getList from "../services/getList";
-import * as FormData from "form-data";
 import updateTheList from "../services/updateList";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Table } from 'reactstrap';
+import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import deleteEntry from "../services/deleteFromList";
 
-function Home() {
+const CATEGORIES = {
+    DAILY_LIST: 0,
+    SHOP_LIST: 1,
+    TARGET_LIST: 2,
+    BOOK_LIST: 3,
+    ARCHIVE_LIST: 4,
+    getCategoryName: (input) => {
+        for (let [key, value] of Object.entries(CATEGORIES))
+            if (input === value)
+                return key;
+        return false;
+    }
+}
 
-    let [listTiltle, setListTitle] = useState('لیست خرید');
-    let [isArchieved, setIsArchieved] = useState(false);
-    let [list, setList] = useState([]);
-    let [title, setTitle] = useState('');
-    let [body, setBody] = useState('body');
-    let [isDone, setIsDone] = useState({
+const FA_CATEGORIES = {
+    DAILY_LIST: 'لیست روزانه',
+    SHOP_LIST: 'لیست خرید',
+    TARGET_LIST: 'لیست اهداف',
+    BOOK_LIST: 'لیست کتب',
+    ARCHIVE_LIST: 'آرشیو',
+    getFaCategoryName: (input) => {
+        for (let [key, value] of Object.entries(FA_CATEGORIES))
+            if (input === key)
+                return value;
+        return false;
+    }
+}
+
+function Home() {
+    const [listTitle, setListTitle] = useState('لیست خرید');
+    const [isArchived, setIsArchived] = useState(false);
+    const [list, setList] = useState([]);
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('body');
+    const [newItemValue, setNewItemValue] = useState('');
+    const [dropdownOpen, setDropdownOpen] = useState();
+    const [activeList, setActiveList] = useState(CATEGORIES.DAILY_LIST);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isDone, setIsDone] = useState({
         "title": null,
         "body": null,
         "done": null,
+        "category": null,
         "id": null
     });
-    let [newItemValue, setNewItemValue] = useState('');
 
-    let [dropdownOpen, setDropdownOpen] = useState();
+    async function updateList(category) {
+        setIsLoading(true);
 
-    async function updateList(isDone) {
         let myList = JSON.parse(await getList());
-        setList(myList.filter(x => x.done === isDone.toString()));
-        if (isDone == true) {
+
+        if (category === true) {
+            setList(myList.filter(x => x.done === category.toString()))
             setListTitle('آرشیو');
-            setIsArchieved(true);
+            setIsArchived(true);
         } else {
-            setIsArchieved(false);
-            setListTitle('لیست خرید');
+            setList(myList.filter(x => x.category === category.toString()));
+            setIsArchived(false);
+            setListTitle(FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(category)));
         }
+
+        setIsLoading(false);
     }
 
-    function deleteAllItems() {
+    function deleteAllItems(category) {
         list.forEach(element => {
             deleteEntry(element);
         });
@@ -43,23 +77,23 @@ function Home() {
         updateList(true);
     }
 
-    async function addToList() {
+    async function addToList(category) {
         setNewItemValue('');
 
-        var data = ({
+        let data = ({
             "title": title,
             "body": body,
-            "done": false
+            "done": false,
+            "category": category
         });
 
         await insertItemToList(data);
-        updateList(false);
+        updateList(category);
     }
 
     async function updateDoneList() {
-        var data = isDone;
-        await updateTheList(data);
-        updateList(false);
+        await updateTheList(isDone);
+        updateList(activeList);
     }
 
     useEffect(() => {
@@ -69,86 +103,105 @@ function Home() {
     }, [isDone])
 
     useEffect(() => {
-        updateList(false);
+        updateList(CATEGORIES.DAILY_LIST);
     }, [])
 
     return (
         <div className="center-div">
             <div className="center-div-col">
-                {/* <h1>To-Do List</h1> */}
                 <table id="items">
                     <div>
                         <tr>
-                            <th style={{ textAlign: 'center' }} onClick={() => updateDoneList()}>وضعیت</th>
-                            {/* <th>Title</th> */}
+                            <th style={{textAlign: 'center'}} onClick={() => updateDoneList()}>وضعیت</th>
                             <th className="w-100">
                                 <div className="row w-100">
                                     <div className="col col-10">
                                         <Dropdown isOpen={dropdownOpen} toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                            <DropdownToggle style={{ backgroundColor: 'none', width: '125px' }} caret>
-                                                {listTiltle}
+                                            <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
+                                                {listTitle}
                                             </DropdownToggle>
                                             <DropdownMenu>
                                                 {/* <DropdownItem header>Header</DropdownItem> */}
                                                 {/* <DropdownItem disabled>Action</DropdownItem> */}
-                                                <DropdownItem onClick={() => { updateList(false); }} style={{ textAlign: 'right' }}>لیست خرید</DropdownItem>
-                                                <DropdownItem divider />
-                                                <DropdownItem onClick={() => { updateList(true); }} style={{ textAlign: 'right' }}>آرشیو</DropdownItem>
+                                                {Object.entries(CATEGORIES).map((item, index) =>
+                                                    <>
+                                                        <p>{item}</p>
+                                                        <p>{index}</p>
+                                                        <DropdownItem onClick={() => {
+                                                            setActiveList(index);
+                                                            updateList(index);
+                                                        }
+                                                        } style={{textAlign: 'right'}}>
+                                                            {FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(index))}
+                                                        </DropdownItem>
+                                                        <DropdownItem divider/>
+                                                    </>
+                                                )}
                                             </DropdownMenu>
                                         </Dropdown>
                                     </div>
                                     <div className="col col-2">
                                         <div className="d-flex justify-content-end align-items-center h-100 left-stick">
-                                            <button className="fa fs-4 text-white" onClick={() => { updateList(false); }}>&#xf021;</button>
+                                            <button className="fa fs-4 bg-transparent text-white" onClick={() => {
+                                                updateList(activeList);
+                                            }}>&#xf021;</button>
                                         </div>
                                     </div>
                                 </div>
                             </th>
                         </tr>
                     </div>
-                    <div className="table-body">
-                        {list && list.map(x =>
-                            <tr key={x.id} className="container-fluid" >
-                                <td style={{ minWidth: '106px' }}>
-                                    <input
-                                        type={'checkbox'}
-                                        checked={x.done === 'true' ? true : false}
-                                        onChange={e => setIsDone(
-                                            {
-                                                "title": x.title,
-                                                "body": x.body,
-                                                "done": e.target.checked,
-                                                "id": parseInt(x.id)
-                                            })
-                                        }>
-                                    </input>
-                                </td>
-                                {/* <td className="width-md">{x.title}</td> */}
-                                <td className="w-100">
-                                    <div className="d-flex justify-content-between">
-                                        {x.body}
-                                        {isArchieved &&
+                    {isLoading ? <div className={`spinner-border text-info mt-5`} role="status"/> :
+                        <div className="table-body">
+                            {list && list.map(x =>
+                                <tr key={x.id} className="container-fluid">
+                                    <td style={{minWidth: '106px'}}>
+                                        <input
+                                            type={'checkbox'}
+                                            checked={x.done === 'true'}
+                                            onChange={e => setIsDone(
+                                                {
+                                                    "title": x.title,
+                                                    "body": x.body,
+                                                    "done": e.target.checked,
+                                                    "id": parseInt(x.id)
+                                                })
+                                            }>
+                                        </input>
+                                    </td>
+                                    <td className="w-100">
+                                        <div className="d-flex justify-content-between">
+                                            {x.body}
+                                            {isArchived &&
                                             <button
                                                 className="btn btn-transparent text-danger fs-6 m-1 d-flex justify-content-start align-items-center text-center"
-                                                style={{ width: '15px', height: '15px' }}
-                                                onClick={() => { deleteEntry({ id: x.id }); updateList(true); }}>
+                                                style={{width: '15px', height: '15px'}}
+                                                onClick={() => {
+                                                    deleteEntry({id: x.id});
+                                                    updateList(true);
+                                                }}>
                                                 &#10006;
                                             </button>}
-                                    </div>
-                                </td>
-                            </tr>
-                        )}
-                    </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
+                        </div>
+                    }
                 </table>
-                {isArchieved ?
+                {isArchived ?
                     <div className="center-div-row">
-                        <p className="fa trashBtn left-stick d-flex" onClick={() => deleteAllItems()}>&#xf014;{/*&#94;*/}</p>
+                        <p className="fa trashBtn left-stick d-flex"
+                           onClick={() => deleteAllItems()}>&#xf014;{/*&#94;*/}</p>
                     </div>
                     :
                     <div className="center-div-row">
-                        <div className="submitionform">
-                            <input value={newItemValue} onChange={e => { setBody(e.target.value); setNewItemValue(e.target.value) }}></input>
-                            <button onClick={() => addToList()}>&#8682;{/*&#94;*/}</button>
+                        <div className="submissionForm">
+                            <input value={newItemValue} onChange={e => {
+                                setBody(e.target.value);
+                                setNewItemValue(e.target.value)
+                            }}/>
+                            <button onClick={() => addToList(activeList)}>&#8682;{/*&#94;*/}</button>
                         </div>
                     </div>
                 }
@@ -156,4 +209,5 @@ function Home() {
         </div>
     );
 }
+
 export default Home;
