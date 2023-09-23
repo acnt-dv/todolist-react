@@ -39,6 +39,13 @@ function Home() {
         updateList(category).then(() => setIsLoading(false));
     }
 
+    function handleKeyPress(event) {
+        if (event.charCode === 13) {
+            setIsLoading(false);
+            addToList(activeList).then(() => setIsLoading(false));
+        }
+    }
+
     async function updateList(category) {
         let myList = JSON.parse(await getList());
 
@@ -83,7 +90,9 @@ function Home() {
     }, [isDone]);
 
     return (
-        <div className="center-div">
+        <div className="center-div" onKeyPress={(e) => {
+            handleKeyPress(e)
+        }}>
             <div className="center-div-col">
                 <table id="items">
                     <div>
