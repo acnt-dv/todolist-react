@@ -56,9 +56,9 @@ function Home() {
 
         let myList = JSON.parse(await getList());
 
-        if (category === true) {
-            setList(myList.filter(x => x.done === category.toString()))
-            setListTitle('آرشیو');
+        if (category === true || category === CATEGORIES.ARCHIVE_LIST) {
+            setList(myList.filter(x => x.done === true.toString()))
+            setListTitle(FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(category)));
             setIsArchived(true);
         } else {
             setList(myList.filter(x => x.category === category.toString()));
@@ -125,8 +125,7 @@ function Home() {
                                                 {/* <DropdownItem disabled>Action</DropdownItem> */}
                                                 {Object.entries(CATEGORIES).map((item, index) =>
                                                     <>
-                                                        <p>{item}</p>
-                                                        <p>{index}</p>
+                                                        {index < Object.entries(CATEGORIES).length -1 &&
                                                         <DropdownItem onClick={() => {
                                                             setActiveList(index);
                                                             updateList(index);
@@ -134,7 +133,10 @@ function Home() {
                                                         } style={{textAlign: 'right'}}>
                                                             {FA_CATEGORIES.getFaCategoryName(CATEGORIES.getCategoryName(index))}
                                                         </DropdownItem>
+                                                        }
+                                                        {index < Object.entries(CATEGORIES).length -2 &&
                                                         <DropdownItem divider/>
+                                                        }
                                                     </>
                                                 )}
                                             </DropdownMenu>
