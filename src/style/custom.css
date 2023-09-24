@@ -23,14 +23,10 @@
 
 .center-div {
     display: flex;
-    /* flex-direction: column; */
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
     align-items: center;
     text-align: center;
     width: 100%;
     height: 100%;
-    /* padding: 25px; */
 }
 
 .center-div-col {
@@ -39,16 +35,12 @@
     position: relative;
     flex-direction: column;
     flex-wrap: wrap;
-    /* justify-content: center; */
     align-items: center;
     text-align: center;
     width: 100%;
     height: 100vh;
-    /* padding-right: 2%; */
-    /* padding-left: 2%; */
-    /* padding-top: 2%; */
     overflow: hidden;
-    background-color: ghostwhite;
+    background-color: white;
 }
 
 .center-div-row {
@@ -62,13 +54,13 @@
 .tableOdd {
     display: flex;
     width: 100%;
-    background-color: #FEFEFE;
+    background-color: whitesmoke;
 }
 
 .tableNormal {
     display: flex;
     width: 100%;
-    background-color: #E8E8E8;
+    background-color: #E5E5E5;
 }
 
 #items {
@@ -80,16 +72,13 @@
 #items td,
 #items th {
     text-align: right;
-    border: 1px solid #ddd;
-    padding: 18px;
-    padding-right: 24px;
+    padding: 18px 24px 18px 18px;
 }
 
 #items th {
     text-align: right;
-    border: 1px solid ghostwhite;
     padding: 24px;
-    background-color: #046D;
+    background-color: #046;
     color: white;
 }
 
@@ -98,11 +87,11 @@
 }
 
 #items tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #F2F2F2;
 }
 
 #items tr:hover {
-    background-color: #ddd;
+    background-color: #DDD;
 }
 
 .table-body {
@@ -134,14 +123,7 @@
 .textBox {
     width: 94%;
     height: 70%;
-    /* background-color: white; */
-    /* border-radius: 5px; */
-    /* border: 0.1px solid; */
-    /* border-color: #04AA6D; */
-    background-color: none;
     border-radius: 5px;
-    border: 0.1px solid;
-    border-color: #046D;
     padding: 0%;
     margin: 0%;
     font-size: large;
@@ -153,10 +135,8 @@
     padding: 0%;
     margin: 0%;
     background-color: #FFF;
-    border: 0.1px solid;
-    border-color: #046D;
-    border-radius: 5px;
-    color: #046D;
+    border-radius: 25px;
+    color: #046;
     font-size: xx-large;
 }
 
@@ -185,8 +165,6 @@
     direction: ltr;
     height: 45px;
     padding: 2px;
-    border: 0.1px solid;
-    border-color: #046D;
     border-radius: 5px;
     box-shadow: 5px 10px 18px #888888;
 }
@@ -194,7 +172,6 @@
 input {
     border: none;
     color: #888888;
-    /* flex-grow:2; */
     width: 100%;
     padding-right: 10px;
     font-size: larger;
@@ -210,7 +187,7 @@ button {
     padding: -1px;
     margin: -2px;
     border: none;
-    border-left: 1px solid #046D;
+    border-left: 1px solid #046;
     background: #046;
     color: white;
     font-size: xx-large;
@@ -224,7 +201,6 @@ button {
 
 @media only screen and (min-width: 600px) {
     html {
-        /*background-color: #2c3034;*/
         display: flex;
         justify-content: center;
     }
@@ -256,7 +232,6 @@ button {
     justify-content: center;
     align-items: center;
     width: 80%;
-    /*height: 80vh;*/
     border-radius: 10px;
     bottom: 20%;
     padding: 15px;

@@ -209,7 +209,7 @@ function Home() {
                                 setNewItemValue(e.target.value)
                             }}/>
                             <button disabled={isDisable}
-                                    onClick={() => addToList(activeList)}>&#10148;{/*&#94;*/}</button>
+                                    onClick={() => addToList(activeList)} style={{borderRadius: '5px'}}>&#10148;{/*&#94;*/}</button>
                         </div>
                     </div>
                 }
