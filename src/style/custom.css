@@ -93,6 +93,10 @@
     color: white;
 }
 
+#item td {
+    margin-bottom: 100px;
+}
+
 #items tr:nth-child(even) {
     background-color: #f2f2f2;
 }

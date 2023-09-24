@@ -155,12 +155,13 @@ function Home() {
                     </tr>
                     {isLoading &&
                         <div className='loaderStyle'>
-                            <div className={`spinner-border spinner-border-lg  mt-5`} style={{width: '125px', height: '125px', color: '#046D'}} role="status"/>
+                            <div className={`spinner-border spinner-border-lg  mt-5`}
+                                 style={{width: '125px', height: '125px', color: '#046D'}} role="status"/>
                         </div>
                     }
 
                     <ReactPullToRefresh onRefresh={handleRefresh}>
-                        {list.length <1 && <img src={emptyImg} style={{maxWidth: '100%'}}/>}
+                        {list.length < 1 && <img src={emptyImg} style={{maxWidth: '100%'}}/>}
                         {list && list.map((item, index) =>
                             <SwipeToDelete
                                 onDelete={() => handleSwipeToDelete(item)} // required
@@ -220,7 +221,7 @@ function Home() {
                                 setNewItemValue(e.target.value)
                             }}/>
                             <button disabled={isDisable}
-                                    onClick={() => addToList(activeList)}>&#8682;{/*&#94;*/}</button>
+                                    onClick={() => addToList(activeList)}>&#10148;{/*&#94;*/}</button>
                         </div>
                     </div>
                 }
