@@ -7,6 +7,7 @@ import deleteEntry from "../services/deleteFromList";
 import {CATEGORIES, FA_CATEGORIES} from "../utilities/enums/categories";
 import ReactPullToRefresh from 'react-pull-to-refresh';
 import SwipeToDelete from 'react-swipe-to-delete-ios';
+import emptyImg from '../assets/images/empty.jpg';
 
 function Home() {
     const [listTitle, setListTitle] = useState('لیست خرید');
@@ -159,6 +160,7 @@ function Home() {
                     }
 
                     <ReactPullToRefresh onRefresh={handleRefresh}>
+                        {list.length <1 && <img src={emptyImg} style={{maxWidth: '100%'}}/>}
                         {list && list.map((item, index) =>
                             <SwipeToDelete
                                 onDelete={() => handleSwipeToDelete(item)} // required
