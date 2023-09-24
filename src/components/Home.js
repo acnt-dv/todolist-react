@@ -164,44 +164,22 @@ function Home() {
                         {list.length < 1 && <img src={emptyImg} style={{maxWidth: '100%'}}/>}
                         {list && list.map((item, index) =>
                             <SwipeToDelete
-                                onDelete={() => handleSwipeToDelete(item)} // required
-                                // optional
-                                height={50} // default
-                                transitionDuration={250} // default
-                                deleteWidth={75} // default
-                                deleteThreshold={75} // default
-                                showDeleteAction={true} //default
-                                deleteColor="rgba(252, 58, 48, 1.00)" // default
-                                deleteText="Done" // default
-                                // deleteComponent={<DeleteComponent/>} // not default
-                                disabled={false} // default
-                                id="swiper-1" // not default
-                                className="my-swiper" // not default
-                                rtl={false} // default
-                                // onDeleteConfirm={(onSuccess, onCancel) => {
-                                //     // not default - default is null
-                                //     if (window.confirm("Do you really want to delete this item ?")) {
-                                //         onSuccess();
-                                //     } else {
-                                //         onCancel();
-                                //     }
-                                // }}
-                            >
+                                onDelete={() => handleSwipeToDelete(item)}
+                                height={50}
+                                transitionDuration={250}
+                                deleteWidth={75}
+                                deleteThreshold={75}
+                                showDeleteAction={true}
+                                deleteColor="rgba(252, 58, 48, 1.00)"
+                                deleteText="Done"
+                                disabled={false}
+                                id="swiper-1"
+                                className="my-swiper"
+                                rtl={false}>
+
                                 <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
                                     <td className="w-100">
                                         {item.body}
-                                        {/*{isArchived &&*/}
-                                        {/*    <button*/}
-                                        {/*        disabled={}*/}
-                                        {/*        className="btn btn-transparent text-light fs-6 m-1 d-flex justify-content-start align-items-center text-center"*/}
-                                        {/*        style={{width: '15px', height: '15px'}}*/}
-                                        {/*        onClick={() => {*/}
-                                        {/*            setIsLoading(true);*/}
-                                        {/*            deleteEntry({id: item.id});*/}
-                                        {/*            updateList(true).then(() => setIsLoading(false));*/}
-                                        {/*        }}>*/}
-                                        {/*        &#10006;*/}
-                                        {/*    </button>}*/}
                                     </td>
                                 </tr>
                             </SwipeToDelete>
