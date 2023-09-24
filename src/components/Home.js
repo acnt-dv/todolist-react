@@ -138,7 +138,7 @@ function Home() {
                                 <div className="col col-12">
                                     <Dropdown disabled={isDisable} isOpen={dropdownOpen}
                                               toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                        <DropdownToggle style={{backgroundColor: 'none', width: '125px'}} caret>
+                                        <DropdownToggle style={{backgroundColor: 'transparent',borderColor: 'white', width: '125px'}} caret>
                                             {listTitle}
                                         </DropdownToggle>
                                         <DropdownMenu>
