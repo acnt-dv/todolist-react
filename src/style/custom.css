@@ -211,7 +211,7 @@ button {
     margin: -2px;
     border: none;
     border-left: 1px solid #046D;
-    background: #046D;
+    background: #046;
     color: white;
     font-size: xx-large;
 }
@@ -247,5 +247,20 @@ button {
     background-color: rgba(125, 125, 125, 0.5);
     top: 0;
     left: 0;
+    z-index: 999;
+}
+
+.modalStyle{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    /*height: 80vh;*/
+    border-radius: 10px;
+    bottom: 20%;
+    padding: 15px;
+    background-color: rgba(0, 68, 102, 0.9);
+    color:white;
     z-index: 999;
 }

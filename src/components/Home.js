@@ -8,6 +8,7 @@ import {CATEGORIES, FA_CATEGORIES} from "../utilities/enums/categories";
 import ReactPullToRefresh from 'react-pull-to-refresh';
 import SwipeToDelete from 'react-swipe-to-delete-ios';
 import emptyImg from '../assets/images/empty.jpg';
+import {DescriptionModal} from "./Modals/DescriptionModal";
 
 function Home() {
     const [listTitle, setListTitle] = useState('لیست خرید');
@@ -20,6 +21,8 @@ function Home() {
     const [activeList, setActiveList] = useState(CATEGORIES.DAILY_LIST);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisable, setIsDisable] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [activeItem, setActiveItem] = useState('');
     const [isDone, setIsDone] = useState({
         "title": null,
         "body": null,
@@ -97,6 +100,13 @@ function Home() {
                     "id": parseInt(x.id)
                 })
         }
+    }
+
+    function handleItemClicked(item) {
+        setActiveItem(item.body);
+        setShowModal(true);
+
+        console.log('here', item)
     }
 
     useEffect(() => {
@@ -178,7 +188,7 @@ function Home() {
                                 rtl={false}>
 
                                 <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
-                                    <td className="w-100">
+                                    <td className="w-100" onClick={() => handleItemClicked(item)}>
                                         {item.body}
                                     </td>
                                 </tr>
@@ -202,6 +212,9 @@ function Home() {
                                     onClick={() => addToList(activeList)}>&#10148;{/*&#94;*/}</button>
                         </div>
                     </div>
+                }
+                {showModal &&
+                    <DescriptionModal item={activeItem} setShowModal={setShowModal}/>
                 }
             </div>
         </div>
