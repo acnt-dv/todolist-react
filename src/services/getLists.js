@@ -1,12 +1,12 @@
 import axios from "axios";
 import {SERVER_ADDRESS} from '../config';
 
-export default async function getList(category) {
+export default async function getLists() {
     let list = ''
 
     let config = {
         method: 'get',
-        url: `${SERVER_ADDRESS}/getList?category=${category}`,
+        url: `${SERVER_ADDRESS}/getListNames`,
         headers: {},
     };
 

@@ -7,9 +7,9 @@ export default async function updateTheList(input) {
     let data = new FormData();
 
     data.append('id', input.id)
-    data.append('title', input.title);
-    data.append('body', input.body);
-    data.append('done', input.done);
+    // data.append('title', input.title);
+    // data.append('body', input.body);
+    // data.append('done', input.done);
     data.append('category', input.category);
 
     let config = {
