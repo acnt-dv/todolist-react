@@ -2,26 +2,26 @@ import axios from 'axios';
 import * as FormData from "form-data";
 import {SERVER_ADDRESS} from '../config';
 
-export default async function deleteEntry(input) {
+export default async function insertItemService(input) {
     let response = '';
     let data = new FormData();
 
-    data.append('id', input.id);
     data.append('category', input.category);
+    data.append('body', input.body);
 
     let config = {
         method: 'post',
-        url: `${SERVER_ADDRESS}/deleteFromList`,
+        url: `${SERVER_ADDRESS}/insertIntoList`,
         headers: {},
         data: data
     };
-    console.log('delete config', config);
+    console.log('update config', config);
     await axios(config)
         .then(function (response) {
             response = JSON.stringify(response.data);
         })
         .catch(function (error) {
-            console.log(error);
+            console.error(error);
         });
     return response;
 }

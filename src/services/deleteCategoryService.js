@@ -2,19 +2,14 @@ import axios from 'axios';
 import * as FormData from "form-data";
 import {SERVER_ADDRESS} from '../config';
 
-export default async function insertItemToList(input) {
+export default async function deleteCategoryService(input) {
     let response = '';
     let data = new FormData();
-
-    data.append('id', input.id);
     data.append('category', input.category);
-    data.append('title', input.title);
-    data.append('body', input.body);
-    data.append('done', input.done);
 
     let config = {
         method: 'post',
-        url: `${SERVER_ADDRESS}/insertIntoList`,
+        url: `${SERVER_ADDRESS}/deleteCategory`,
         headers: {},
         data: data
     };
