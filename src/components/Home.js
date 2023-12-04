@@ -65,21 +65,24 @@ function Home() {
     }
 
     async function updateList(category) {
-        let listItems = JSON.parse(await getList(category))?.data;
-        listItems.sort(function compareByDone(a, b) {
-                return a.isDone - b.isDone;
-            }
-        );
-        setList(listItems);
-        setActiveList(category);
+        try {
+            let listItems = JSON.parse(await getList(category))?.data;
+            listItems.sort(function compareByDone(a, b) {
+                    return a.isDone - b.isDone;
+                }
+            );
+            setList(listItems);
+            setActiveList(category);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function handleKeyPress(event) {
         if (event.charCode === 13) {
-            setIsLoading(false);
             insertItem(activeList).then(() => {
-                setIsLoading(false);
                 inputRef.current.focus();
+                inputRef.current.select();
             });
         }
     }

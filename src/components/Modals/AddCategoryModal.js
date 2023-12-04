@@ -4,7 +4,7 @@ export const AddCategoryModal = ({submit, isLoading, setShowModal}) => {
     const [categoryName, setCategoryName] = useState(null);
 
     return (
-        <div>
+        <div onClick={()=> setShowModal(false)}>
             <div className="submissionForm">
                 <input
                     autoFocus
@@ -14,7 +14,7 @@ export const AddCategoryModal = ({submit, isLoading, setShowModal}) => {
                         setCategoryName(e.target.value);
                     }}/>
                 <button
-                    onClick={() => {submit(categoryName); setShowModal(false)}}
+                    onClick={() => {submit(categoryName);}}
                     style={{borderRadius: '5px', padding: '2px', minWidth: '50px'}}>
                     ثبت
                 </button>
