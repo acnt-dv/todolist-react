@@ -35,7 +35,6 @@ function Home() {
             "category": category,
         }).then(() => {
             setActiveList(category);
-            // setRefresh(!refresh);
             reload();
         });
     }
@@ -132,11 +131,6 @@ function Home() {
         reload();
     }, []);
 
-    // useEffect(() => {
-    //     setList([]);
-    //     updateList(activeList).then(() => setIsLoading(false));
-    // }, [isLoading]);
-
     useEffect(() => {
         setIsLoading(true);
         setList([]);
@@ -152,7 +146,7 @@ function Home() {
                     <tr>
                         <th className="w-100">
                             <div className="row w-100">
-                                <div className="col col-10">
+                                <div className="d-flex">
                                     <Dropdown disabled={isLoading} isOpen={dropdownOpen}
                                               toggle={() => setDropdownOpen(!dropdownOpen)}>
                                         <DropdownToggle style={{
@@ -176,24 +170,26 @@ function Home() {
                                             <DropdownItem onClick={() => {
                                                 setShowCategoryModal(true);
                                             }} style={{textAlign: 'right', color: 'green'}}>
-                                                <div className="d-flex">
+                                                <div className="d-flex" style={{maxHeight: '25px'}}>
                                                     <p style={{
-                                                        padding: '2px',
+                                                        padding: '0px',
                                                         textAlign: 'center',
-                                                        marginLeft: '12px'
+                                                        marginLeft: '12px',
+                                                        fontSize: '20px'
                                                     }}>&#43;</p>
                                                     <p style={{textAlign: 'center'}}>{'افزودن'}</p>
                                                 </div>
                                             </DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
+                                    <div className="">
+                                        <p className="fa left-stick d-flex"
+                                           style={{cursor: 'pointer', fontSize: '16px', marginTop: '11px', marginRight: '8px'}}
+                                           onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="col col-2">
-                                    <p className="fa left-stick d-flex"
-                                       style={{cursor: 'pointer', fontSize: '16px', marginTop: '12px'}}
-                                       onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
-                                    </p>
-                                </div>
+
                             </div>
                         </th>
                     </tr>
@@ -206,7 +202,7 @@ function Home() {
                     </div>}
 
                     <ReactPullToRefresh onRefresh={handleRefresh}>
-                        {list && list.length < 1 && <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>}
+                        {list && (list.length < 1 && !isLoading) && <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>}
 
                         {list && list.map((item, index) =>
                             item.isDone === 0 ?
