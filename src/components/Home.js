@@ -120,7 +120,13 @@ function Home() {
         }
 
         setIsLoading(true);
-        getCategoryList().then((firstItem) => updateList(firstItem).then(() => setIsLoading(false)));
+        try {
+            getCategoryList().then((firstItem) => updateList(firstItem).then(() => setIsLoading(false)));
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
