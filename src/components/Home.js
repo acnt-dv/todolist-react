@@ -4,7 +4,6 @@ import getList from "../services/getList";
 import updateTheList from "../services/updateList";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import deleteEntry from "../services/deleteFromList";
-import ReactPullToRefresh from 'react-pull-to-refresh';
 import SwipeToDelete from 'react-swipe-to-delete-ios';
 import emptyImg from '../assets/images/empty.jpg';
 import {DescriptionModal} from "./Modals/DescriptionModal";
@@ -14,6 +13,8 @@ import insertCategoryService from "../services/insertCategoryService";
 import deleteCategoryService from "../services/deleteCategoryService";
 
 function Home() {
+
+    const inputRef = useRef(null);
 
     const [list, setList] = useState([]);
     const [body, setBody] = useState('body');
@@ -27,12 +28,14 @@ function Home() {
     const [activeItem, setActiveItem] = useState('');
     const [refresh, setRefresh] = useState(false);
 
-    const inputRef = useRef(null);
+    const userList = ['fz_', 'dv_'];
+    const [userName, setUserName] = useState(userList[0]);
+    const [isPrimary, setIsPrimary] = useState(true);
 
     function insertCategory(category) {
         setIsLoading(true);
         insertCategoryService({
-            "category": category,
+            "category": userName.concat(category),
         }).then(() => {
             setActiveList(category);
             reload();
@@ -42,7 +45,7 @@ function Home() {
     function deleteCategory() {
         setIsLoading(true);
         deleteCategoryService({
-            "category": activeList
+            "category": userName.concat(activeList)
         }).then(() => {
             reload();
         });
@@ -52,7 +55,7 @@ function Home() {
         setIsLoading(true);
         setNewItemValue('');
         insertItemService({
-            "category": category,
+            "category": userName.concat(category),
             "body": body
         }).then(() => {
             setRefresh(!refresh);
@@ -66,7 +69,7 @@ function Home() {
 
     async function updateList(category) {
         try {
-            let listItems = JSON.parse(await getList(category))?.data;
+            let listItems = JSON.parse(await getList(userName.concat(category)))?.data;
             listItems.sort(function compareByDone(a, b) {
                     return a.isDone - b.isDone;
                 }
@@ -94,11 +97,11 @@ function Home() {
     async function handleSwipeToDelete(x) {
         if (x.isDone === 1) {
             setIsLoading(true);
-            deleteEntry({category: activeList, id: parseInt(x.id)}).then(() => setRefresh(!refresh));
+            deleteEntry({category: userName.concat(activeList), id: parseInt(x.id)}).then(() => setRefresh(!refresh));
         } else {
             setIsLoading(true);
             updateTheList({
-                "category": activeList,
+                "category": userName.concat(activeList),
                 "id": parseInt(x.id)
             }).then(() => setRefresh(!refresh));
         }
@@ -109,12 +112,14 @@ function Home() {
         setShowModal(true);
     }
 
-    function reload(){
+    function reload() {
         async function getCategoryList() {
             let categories = [];
             let list = JSON.parse(await getLists())?.data;
             list.forEach(item => {
-                categories.push(Object.values(item)?.[0]);
+                if (Object.values(item)?.[0].includes(userName)) {
+                    categories.push(Object.values(item)?.[0]?.replace(`${userName}`, ``));
+                }
             });
             let firstItem = categories?.[0];
             setCategoryList(categories);
@@ -131,6 +136,15 @@ function Home() {
             setIsLoading(false);
         }
     }
+
+    useEffect(() => {
+        if (isPrimary) setUserName(userList[0]);
+        else setUserName(userList[1]);
+    }, [isPrimary]);
+
+    useEffect(() => {
+        reload();
+    }, [userName]);
 
     useEffect(() => {
         setInterval(() => {
@@ -155,50 +169,72 @@ function Home() {
                     <tr>
                         <th className="w-100">
                             <div className="row w-100">
-                                <div className="d-flex">
-                                    <Dropdown disabled={isLoading} isOpen={dropdownOpen}
-                                              toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                        <DropdownToggle style={{
-                                            backgroundColor: 'transparent',
-                                            borderColor: 'white',
-                                            width: '125px'
-                                        }} caret>
-                                            {activeList}
-                                        </DropdownToggle>
-                                        <DropdownMenu>
-                                            {categoryList && categoryList.length > 0 && categoryList.map((item, index) =>
-                                                <>
-                                                    <DropdownItem onClick={() => {
-                                                        changeList(item);
-                                                    }} style={{textAlign: 'right'}}>
-                                                        {item}
-                                                    </DropdownItem>
-                                                </>
-                                            )}
-                                            <DropdownItem divider/>
-                                            <DropdownItem onClick={() => {
-                                                setShowCategoryModal(true);
-                                            }} style={{textAlign: 'right', color: 'green'}}>
-                                                <div className="d-flex" style={{maxHeight: '25px'}}>
-                                                    <p style={{
-                                                        padding: '0px',
-                                                        textAlign: 'center',
-                                                        marginLeft: '12px',
-                                                        fontSize: '20px'
-                                                    }}>&#43;</p>
-                                                    <p style={{textAlign: 'center'}}>{'افزودن'}</p>
-                                                </div>
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
-                                    <div className="">
-                                        <p className="fa left-stick d-flex"
-                                           style={{cursor: 'pointer', fontSize: '16px', marginTop: '11px', marginRight: '8px'}}
-                                           onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
-                                        </p>
+                                <div className="d-flex justify-content-between">
+                                    <div className="d-flex">
+                                        <Dropdown disabled={isLoading} isOpen={dropdownOpen}
+                                                  toggle={() => setDropdownOpen(!dropdownOpen)}>
+                                            <DropdownToggle style={{
+                                                backgroundColor: 'transparent',
+                                                borderColor: 'white',
+                                                width: '225px'
+                                            }} caret>
+                                                {activeList}
+                                            </DropdownToggle>
+                                            <DropdownMenu className="w-100">
+                                                {categoryList && categoryList.length > 0 && categoryList.map((item, index) =>
+                                                    <>
+                                                        <DropdownItem onClick={() => {
+                                                            changeList(item);
+                                                        }} style={{textAlign: 'right'}}>
+                                                            {item}
+                                                        </DropdownItem>
+                                                    </>
+                                                )}
+                                                <DropdownItem divider/>
+                                                <DropdownItem onClick={() => {
+                                                    setShowCategoryModal(true);
+                                                }} style={{textAlign: 'right', color: 'green'}}>
+                                                    <div className="d-flex" style={{maxHeight: '25px'}}>
+                                                        <p style={{
+                                                            padding: '0px',
+                                                            textAlign: 'center',
+                                                            marginLeft: '12px',
+                                                            fontSize: '20px'
+                                                        }}>&#43;</p>
+                                                        <p style={{textAlign: 'center'}}>{'افزودن'}</p>
+                                                    </div>
+                                                </DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
+
+                                        <div className="">
+                                            <p className="fa left-stick d-flex"
+                                               style={{
+                                                   cursor: 'pointer',
+                                                   fontSize: '16px',
+                                                   marginTop: '11px',
+                                                   marginRight: '8px'
+                                               }}
+                                               onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div style={{width: '50px'}}>
+                                        <button
+                                            onClick={() => {
+                                                setIsPrimary(!isPrimary)
+                                            }}
+                                            className="btn btn-light mx-4 d-flex justify-content-center align-items-center"
+                                            style={{width: '35px', height: '35px', borderRadius: '100%'}}>
+
+                                            {isPrimary === true ?
+                                                <span>&#128105;&#127995;</span>
+                                                :
+                                                <span>&#128104;&#127995;</span>
+                                            }
+                                        </button>
                                     </div>
                                 </div>
-
                             </div>
                         </th>
                     </tr>
@@ -210,8 +246,10 @@ function Home() {
                              role="status"/>
                     </div>}
 
-                    <ReactPullToRefresh onRefresh={handleRefresh}>
-                        {list && (list.length < 1 && !isLoading) && <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>}
+                    {/*<ReactPullToRefresh onRefresh={handleRefresh}>*/}
+                    <div>
+                        {list && (list.length < 1 && !isLoading) &&
+                        <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>}
 
                         {list && list.map((item, index) =>
                             item.isDone === 0 ?
@@ -259,7 +297,8 @@ function Home() {
                                     </tr>
                                 </SwipeToDelete>
                         )}
-                    </ReactPullToRefresh>
+                    </div>
+                    {/*</ReactPullToRefresh>*/}
                 </table>
                 {showCategoryModal ?
                     <div/>
