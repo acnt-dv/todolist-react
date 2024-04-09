@@ -27,6 +27,7 @@
     text-align: center;
     width: 100%;
     height: 100%;
+    background-color: #046;
 }
 
 .center-div-col {
@@ -40,14 +41,13 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background-color: white;
 }
 
 .center-div-row {
     position: absolute;
-    width: 85%;
-    right: 4%;
-    bottom: 4%;
+    width: 97%;
+    left: 3%;
+    bottom: 2%;
     align-items: center;
 }
 
@@ -163,16 +163,22 @@
 .submissionForm {
     display: flex;
     direction: ltr;
+    /*background-color: #888888;*/
+    width: 100%;
     height: 45px;
-    padding: 2px;
-    border-radius: 5px;
-    box-shadow: 5px 10px 18px #888888;
+    /*padding: 2px;*/
+    /*border: #888888;*/
+    border-radius: 10px;
+    /*box-shadow: 5px 10px 18px #888888;*/
 }
 
 input {
-    border: none;
-    color: #888888;
+    /*border: solid 0.5 #046;*/
+    color: #046;
+    background-color: whitesmoke;
     width: 100%;
+    border: none;
+    border-radius: 10px;
     padding-right: 10px;
     font-size: larger;
     text-align: right;
@@ -184,12 +190,11 @@ input:focus {
 
 button {
     width: 45px;
-    padding: -1px;
-    margin: -2px;
     border: none;
-    border-left: 1px solid #046;
+    border-radius: 10%;
+    /*border-left: 1px solid whitesmoke;*/
     background: #046;
-    color: white;
+    color: whitesmoke;
     font-size: xx-large;
 }
 

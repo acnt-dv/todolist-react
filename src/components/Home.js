@@ -112,6 +112,11 @@ function Home() {
         setShowModal(true);
     }
 
+    async function handleItemDoubleClicked(item) {
+        console.log('here')
+        await handleSwipeToDelete(item);
+    }
+
     function reload() {
         async function getCategoryList() {
             let categories = [];
@@ -247,7 +252,7 @@ function Home() {
                     </div>}
 
                     {/*<ReactPullToRefresh onRefresh={handleRefresh}>*/}
-                    <div>
+                    <div style={{height: '75vh', overflow: 'auto'}}>
                         {list && (list.length < 1 && !isLoading) &&
                         <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>}
 
@@ -268,7 +273,9 @@ function Home() {
                                     rtl={false}>
 
                                     <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
-                                        <td className="w-100" onClick={() => handleItemClicked(item)}>
+                                        <td className="w-100" onClick={() => {
+                                            handleItemClicked(item)
+                                        }}>
                                             {item.items}
                                         </td>
                                     </tr>
@@ -313,7 +320,7 @@ function Home() {
                             }}/>
                             <button disabled={isLoading}
                                     onClick={() => insertItem(activeList)}
-                                    style={{borderRadius: '5px'}}>&#10148;{/*&#94;*/}</button>
+                                    style={{borderRadius: '10%', margin: '5px', width: '35px', height: '35px'}}>&#10148;{/*&#94;*/}</button>
                         </div>
                     </div>
                 }
