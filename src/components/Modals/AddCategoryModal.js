@@ -5,7 +5,7 @@ export const AddCategoryModal = ({submit, isLoading, setShowModal}) => {
 
     return (
         <div onClick={()=> setShowModal(false)}>
-            <div className="submissionForm">
+            <div className="submissionForm" style={{marginTop: '15px'}}>
                 <input
                     autoFocus
                     disabled={isLoading}

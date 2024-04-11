@@ -27,8 +27,9 @@ function Home() {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [activeItem, setActiveItem] = useState('');
     const [refresh, setRefresh] = useState(false);
+    const [isAddingMode, setIsAddingMode] = useState(false);
 
-    const userList = ['fz_', 'dv_'];
+    const userList = ['dv_', 'fz_'];
     const [userName, setUserName] = useState(userList[0]);
     const [isPrimary, setIsPrimary] = useState(true);
 
@@ -38,7 +39,7 @@ function Home() {
             "category": userName.concat(category),
         }).then(() => {
             setActiveList(category);
-            reload();
+            reload(category);
         });
     }
 
@@ -70,7 +71,7 @@ function Home() {
     async function updateList(category) {
         try {
             let listItems = JSON.parse(await getList(userName.concat(category)))?.data;
-            listItems.sort(function compareByDone(a, b) {
+            listItems && listItems.sort(function compareByDone(a, b) {
                     return a.isDone - b.isDone;
                 }
             );
@@ -83,10 +84,7 @@ function Home() {
 
     function handleKeyPress(event) {
         if (event.charCode === 13) {
-            insertItem(activeList).then(() => {
-                inputRef.current.focus();
-                inputRef.current.select();
-            });
+            insertItem(activeList);
         }
     }
 
@@ -117,7 +115,7 @@ function Home() {
         await handleSwipeToDelete(item);
     }
 
-    function reload() {
+    function reload(category) {
         async function getCategoryList() {
             let categories = [];
             let list = JSON.parse(await getLists())?.data;
@@ -126,12 +124,20 @@ function Home() {
                     categories.push(Object.values(item)?.[0]?.replace(`${userName}`, ``));
                 }
             });
+            console.log(isAddingMode)
+            if (category) {
+                let active = categories.find(x => x === category);
+                setCategoryList(categories);
+                setActiveList(active);
+                return active
+            }
             let firstItem = categories?.[0];
             setCategoryList(categories);
             setActiveList(firstItem);
             return firstItem;
         }
 
+        setIsAddingMode(false);
         setIsLoading(true);
         try {
             getCategoryList().then((firstItem) => updateList(firstItem).then(() => setIsLoading(false)));
@@ -162,7 +168,11 @@ function Home() {
     useEffect(() => {
         setIsLoading(true);
         setList([]);
-        updateList(activeList).then(() => setIsLoading(false));
+        updateList(activeList).then(() => {
+            setIsLoading(false);
+            inputRef?.current?.focus();
+            inputRef?.current?.select();
+        });
     }, [refresh]);
 
     return (
@@ -198,7 +208,7 @@ function Home() {
                                                 <DropdownItem divider/>
                                                 <DropdownItem onClick={() => {
                                                     setShowCategoryModal(true);
-                                                }} style={{textAlign: 'right', color: 'green'}}>
+                                                }} style={{textAlign: 'right', color: '#046'}}>
                                                     <div className="d-flex" style={{maxHeight: '25px'}}>
                                                         <p style={{
                                                             padding: '0px',
@@ -224,21 +234,21 @@ function Home() {
                                             </p>
                                         </div>
                                     </div>
-                                    <div style={{width: '50px'}}>
-                                        <button
-                                            onClick={() => {
-                                                setIsPrimary(!isPrimary)
-                                            }}
-                                            className="btn btn-light mx-4 d-flex justify-content-center align-items-center"
-                                            style={{width: '35px', height: '35px', borderRadius: '100%'}}>
+                                    {/*<div style={{width: '50px'}}>*/}
+                                    {/*    <button*/}
+                                    {/*        onClick={() => {*/}
+                                    {/*            setIsPrimary(!isPrimary)*/}
+                                    {/*        }}*/}
+                                    {/*        className="btn btn-light mx-4 d-flex justify-content-center align-items-center"*/}
+                                    {/*        style={{width: '35px', height: '35px', borderRadius: '100%'}}>*/}
 
-                                            {isPrimary === true ?
-                                                <span>&#128105;&#127995;</span>
-                                                :
-                                                <span>&#128104;&#127995;</span>
-                                            }
-                                        </button>
-                                    </div>
+                                    {/*        {isPrimary === true ?*/}
+                                    {/*            <span>&#128105;&#127995;</span>*/}
+                                    {/*            :*/}
+                                    {/*            <span>&#128104;&#127995;</span>*/}
+                                    {/*        }*/}
+                                    {/*    </button>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </th>
@@ -252,9 +262,12 @@ function Home() {
                     </div>}
 
                     {/*<ReactPullToRefresh onRefresh={handleRefresh}>*/}
-                    <div style={{height: '75vh', overflow: 'auto'}}>
+                    <div style={{height: '75vh', overflow: 'auto', backgroundColor: 'white'}}>
                         {list && (list.length < 1 && !isLoading) &&
-                        <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>}
+                        <div style={{height: '75vh', overflow: 'auto', display: 'flex', alignItems: 'center'}}>
+                            <img alt={''} src={emptyImg} style={{maxWidth: '100%'}}/>
+                        </div>
+                        }
 
                         {list && list.map((item, index) =>
                             item.isDone === 0 ?
@@ -311,17 +324,26 @@ function Home() {
                     <div/>
                     :
                     <div className="center-div-row">
-                        <div className="submissionForm">
-                            <input ref={inputRef}
-                                   autoFocus
-                                   disabled={isLoading} value={newItemValue} onChange={e => {
-                                setBody(e.target.value);
-                                setNewItemValue(e.target.value);
-                            }}/>
-                            <button disabled={isLoading}
-                                    onClick={() => insertItem(activeList)}
-                                    style={{borderRadius: '10%', margin: '5px', width: '35px', height: '35px'}}>&#10148;{/*&#94;*/}</button>
-                        </div>
+                        {isAddingMode ?
+                            <div className="submissionForm">
+                                <input ref={inputRef}
+                                       autoFocus
+                                       disabled={isLoading} value={newItemValue} onChange={e => {
+                                    setBody(e.target.value);
+                                    setNewItemValue(e.target.value);
+                                }}/>
+                                <button disabled={isLoading}
+                                        onClick={() => insertItem(activeList)}
+                                        style={{
+                                            borderRadius: '10%',
+                                            margin: '5px',
+                                            width: '35px',
+                                            height: '35px'
+                                        }}>&#10148;{/*&#94;*/}</button>
+                            </div>
+                            :
+                            <button className="plusBtn" onClick={() => setIsAddingMode(!isAddingMode)}>&#43;</button>
+                        }
                     </div>
                 }
                 {showCategoryModal &&
