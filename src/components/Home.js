@@ -182,75 +182,80 @@ function Home() {
             <div className="center-div-col">
                 <table id="items">
                     <tr>
-                        <th className="w-100">
-                            <div className="row w-100">
-                                <div className="d-flex justify-content-between">
-                                    <div className="d-flex">
-                                        <Dropdown disabled={isLoading} isOpen={dropdownOpen}
-                                                  toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                            <DropdownToggle style={{
-                                                backgroundColor: 'transparent',
-                                                borderColor: 'white',
-                                                width: '225px'
-                                            }} caret>
-                                                {activeList}
-                                            </DropdownToggle>
-                                            <DropdownMenu className="w-100">
-                                                {categoryList && categoryList.length > 0 && categoryList.map((item, index) =>
-                                                    <>
-                                                        <DropdownItem onClick={() => {
-                                                            changeList(item);
-                                                        }} style={{textAlign: 'right'}}>
-                                                            {item}
-                                                        </DropdownItem>
-                                                    </>
-                                                )}
-                                                <DropdownItem divider/>
-                                                <DropdownItem onClick={() => {
-                                                    setShowCategoryModal(true);
-                                                }} style={{textAlign: 'right', color: '#046'}}>
-                                                    <div className="d-flex" style={{maxHeight: '25px'}}>
-                                                        <p style={{
-                                                            padding: '0px',
-                                                            textAlign: 'center',
-                                                            marginLeft: '12px',
-                                                            fontSize: '20px'
-                                                        }}>&#43;</p>
-                                                        <p style={{textAlign: 'center'}}>{'افزودن'}</p>
-                                                    </div>
-                                                </DropdownItem>
-                                            </DropdownMenu>
-                                        </Dropdown>
-
-                                        <div className="">
-                                            <p className="fa left-stick d-flex"
-                                               style={{
-                                                   cursor: 'pointer',
-                                                   fontSize: '16px',
-                                                   marginTop: '11px',
-                                                   marginRight: '8px'
-                                               }}
-                                               onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {/*<div style={{width: '50px'}}>*/}
-                                    {/*    <button*/}
-                                    {/*        onClick={() => {*/}
-                                    {/*            setIsPrimary(!isPrimary)*/}
-                                    {/*        }}*/}
-                                    {/*        className="btn btn-light mx-4 d-flex justify-content-center align-items-center"*/}
-                                    {/*        style={{width: '35px', height: '35px', borderRadius: '100%'}}>*/}
-
-                                    {/*        {isPrimary === true ?*/}
-                                    {/*            <span>&#128105;&#127995;</span>*/}
-                                    {/*            :*/}
-                                    {/*            <span>&#128104;&#127995;</span>*/}
-                                    {/*        }*/}
-                                    {/*    </button>*/}
-                                    {/*</div>*/}
+                        <th className="d-flex w-100 justify-content-center">
+                            {/*<div className="row w-100">*/}
+                            <div className="d-flex w-100 justify-content-center">
+                                {/*<div>*/}
+                                <div className="listButton">
+                                    <p className="fa left-stick d-flex"
+                                       style={{
+                                           cursor: 'pointer',
+                                           fontSize: '16px',
+                                           marginTop: '8px',
+                                           marginRight: '14px',
+                                           color: 'white'
+                                       }}
+                                       onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
+                                    </p>
                                 </div>
+
+                                <Dropdown
+                                    className="listInput"
+                                    disabled={isLoading}
+                                    isOpen={dropdownOpen}
+                                    toggle={() => setDropdownOpen(!dropdownOpen)}>
+                                    <DropdownToggle style={{
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'transparent',
+                                        color: '#046',
+                                        width: '275px'
+                                    }} caret>
+                                        {activeList}
+                                    </DropdownToggle>
+                                    <DropdownMenu className="w-100">
+                                        {categoryList && categoryList.length > 0 && categoryList.map((item, index) =>
+                                            <>
+                                                <DropdownItem onClick={() => {
+                                                    changeList(item);
+                                                }} style={{textAlign: 'right'}}>
+                                                    {item}
+                                                </DropdownItem>
+                                            </>
+                                        )}
+                                        <DropdownItem divider/>
+                                        <DropdownItem onClick={() => {
+                                            setShowCategoryModal(true);
+                                        }} style={{textAlign: 'right', color: '#046'}}>
+                                            <div className="d-flex" style={{maxHeight: '25px'}}>
+                                                <p style={{
+                                                    padding: '0px',
+                                                    textAlign: 'center',
+                                                    marginLeft: '12px',
+                                                    fontSize: '20px'
+                                                }}>&#43;</p>
+                                                <p style={{textAlign: 'center'}}>{'افزودن'}</p>
+                                            </div>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                                {/*</div>*/}
+                                {/*<div style={{width: '50px'}}>*/}
+                                {/*    <button*/}
+                                {/*        onClick={() => {*/}
+                                {/*            setIsPrimary(!isPrimary)*/}
+                                {/*        }}*/}
+                                {/*        className="btn btn-light mx-4 d-flex justify-content-center align-items-center"*/}
+                                {/*        style={{width: '35px', height: '35px', borderRadius: '100%'}}>*/}
+
+                                {/*        {isPrimary === true ?*/}
+                                {/*            <span>&#128105;&#127995;</span>*/}
+                                {/*            :*/}
+                                {/*            <span>&#128104;&#127995;</span>*/}
+                                {/*        }*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
                             </div>
+                            {/*</div>*/}
                         </th>
                     </tr>
 
@@ -325,21 +330,20 @@ function Home() {
                     :
                     <div className="center-div-row">
                         {isAddingMode ?
-                            <div className="submissionForm">
+                            <div className="d-flex justify-content-center" style={{width: '90%'}}>
+                                <button
+                                    className="addItemButton"
+                                    disabled={isLoading}
+                                    onClick={() => insertItem(activeList)}>
+                                    &#10148;{/*&#94;*/}
+                                </button>
                                 <input ref={inputRef}
+                                       className="addItemInput"
                                        autoFocus
                                        disabled={isLoading} value={newItemValue} onChange={e => {
                                     setBody(e.target.value);
                                     setNewItemValue(e.target.value);
                                 }}/>
-                                <button disabled={isLoading}
-                                        onClick={() => insertItem(activeList)}
-                                        style={{
-                                            borderRadius: '10%',
-                                            margin: '5px',
-                                            width: '35px',
-                                            height: '35px'
-                                        }}>&#10148;{/*&#94;*/}</button>
                             </div>
                             :
                             <button className="plusBtn" onClick={() => setIsAddingMode(!isAddingMode)}>&#43;</button>

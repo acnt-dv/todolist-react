@@ -4,9 +4,10 @@ export const AddCategoryModal = ({submit, isLoading, setShowModal}) => {
     const [categoryName, setCategoryName] = useState(null);
 
     return (
-        <div onClick={()=> setShowModal(false)}>
+        <div className="d-flex justify-content-center w-75" onClick={()=> setShowModal(false)}>
             <div className="submissionForm" style={{marginTop: '15px'}}>
                 <input
+                    className="addCategoryInput"
                     autoFocus
                     disabled={isLoading}
                     value={categoryName}
@@ -14,8 +15,8 @@ export const AddCategoryModal = ({submit, isLoading, setShowModal}) => {
                         setCategoryName(e.target.value);
                     }}/>
                 <button
-                    onClick={() => {submit(categoryName);}}
-                    style={{borderRadius: '5px', padding: '2px', minWidth: '50px'}}>
+                    className="addCategoryButton"
+                    onClick={() => {submit(categoryName);}}>
                     ثبت
                 </button>
             </div>

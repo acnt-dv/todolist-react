@@ -35,7 +35,6 @@
     direction: rtl;
     position: relative;
     flex-direction: column;
-    flex-wrap: wrap;
     align-items: center;
     text-align: center;
     width: 100%;
@@ -44,10 +43,19 @@
 }
 
 .center-div-row {
-    position: absolute;
-    width: 97%;
-    left: 3%;
-    bottom: 6%;
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.center-div-row-full {
+    background-color: #046;
+    position: relative;
+    width: 100%;
+    justify-content: center;
     align-items: center;
 }
 
@@ -175,10 +183,11 @@
 .plusBtn {
     width: 50px;
     height: 50px;
-    background-color: whitesmoke;
-    color: #046;
+    background-color: none;
+    color: white;
     border-radius: 100%;
     font-size: xx-large;
+    margin-top: 3px;
     left: 4px
 }
 
@@ -242,7 +251,7 @@ button {
     z-index: 999;
 }
 
-.modalStyle{
+.modalStyle {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -252,6 +261,61 @@ button {
     bottom: 20%;
     padding: 15px;
     background-color: rgba(0, 68, 102, 0.9);
-    color:white;
+    color: white;
     z-index: 999;
+}
+
+.addCategoryButton {
+    border-radius: 0 15px 15px 0;
+    border-style: solid;
+    border-color: white;
+    padding: 2px;
+    min-width: 75px;
+    width: 25%
+}
+
+.addCategoryInput {
+    border-radius: 15px 0 0 15px;
+    border: none;
+    background-color: white;
+    padding: 2px;
+    width: 75%;
+}
+
+.addItemButton {
+    border-radius: 0 15px 15px 0;
+    border-style: solid;
+    border-color: white;
+    padding: 2px;
+    max-width: 50px;
+    height: 45px;
+    width: 15%
+}
+
+.addItemInput {
+    border-radius: 15px 0 0 15px;
+    border: none;
+    background-color: white;
+    padding: 2px;
+    height: 45px;
+    width: 85%;
+}
+
+.listInput {
+    border-radius: 15px 0 0 15px;
+    border: none;
+    background-color: white;
+    padding: 2px;
+    height: 45px;
+    width: 85%;
+}
+
+.listButton {
+    border-radius: 0 15px 15px 0;
+    border-style: solid;
+    border-color: white;
+    padding: 2px;
+    max-width: 50px;
+    height: 45px;
+    width: 15%
 }
