@@ -16,6 +16,8 @@ function Home() {
 
     const inputRef = useRef(null);
 
+    const addingItems = "ADD_ING_INPUT_S";
+
     const [list, setList] = useState([]);
     const [body, setBody] = useState('body');
     const [newItemValue, setNewItemValue] = useState('');
@@ -88,6 +90,11 @@ function Home() {
         }
     }
 
+    function handleMouseClicked(event) {
+        if (event.target?.name !== addingItems)
+            setIsAddingMode(false);
+    }
+
     async function handleRefresh() {
         setRefresh(!refresh);
     }
@@ -111,7 +118,6 @@ function Home() {
     }
 
     async function handleItemDoubleClicked(item) {
-        console.log('here')
         await handleSwipeToDelete(item);
     }
 
@@ -124,7 +130,6 @@ function Home() {
                     categories.push(Object.values(item)?.[0]?.replace(`${userName}`, ``));
                 }
             });
-            console.log(isAddingMode)
             if (category) {
                 let active = categories.find(x => x === category);
                 setCategoryList(categories);
@@ -176,7 +181,7 @@ function Home() {
     }, [refresh]);
 
     return (
-        <div className="center-div" onKeyPress={(e) => {
+        <div className="center-div" onClick={(e) => handleMouseClicked(e)} onKeyPress={(e) => {
             handleKeyPress(e);
         }}>
             <div className="center-div-col">
@@ -333,11 +338,13 @@ function Home() {
                             <div className="d-flex justify-content-center" style={{width: '90%'}}>
                                 <button
                                     className="addItemButton"
+                                    name={addingItems}
                                     disabled={isLoading}
                                     onClick={() => insertItem(activeList)}>
                                     &#10148;{/*&#94;*/}
                                 </button>
                                 <input ref={inputRef}
+                                       name={addingItems}
                                        className="addItemInput"
                                        autoFocus
                                        disabled={isLoading} value={newItemValue} onChange={e => {
@@ -346,7 +353,8 @@ function Home() {
                                 }}/>
                             </div>
                             :
-                            <button className="plusBtn" onClick={() => setIsAddingMode(!isAddingMode)}>&#43;</button>
+                            <button name={addingItems} className="plusBtn"
+                                    onClick={() => setIsAddingMode(!isAddingMode)}>&#43;</button>
                         }
                     </div>
                 }
