@@ -195,12 +195,12 @@ function Home() {
                                     <p className="fa left-stick d-flex"
                                        style={{
                                            cursor: 'pointer',
-                                           fontSize: '16px',
-                                           marginTop: '8px',
+                                           fontSize: '32px',
+                                           marginTop: '2px',
                                            marginRight: '14px',
                                            color: 'white'
                                        }}
-                                       onClick={() => deleteCategory()}>&#xf014;{/*&#94;*/}
+                                       onClick={() => deleteCategory()}>&#8942;{/*&#94;&#xf014;*/}
                                     </p>
                                 </div>
 
@@ -353,8 +353,12 @@ function Home() {
                                 }}/>
                             </div>
                             :
-                            <button name={addingItems} className="plusBtn"
-                                    onClick={() => setIsAddingMode(!isAddingMode)}>&#43;</button>
+                            <button
+                                name={addingItems}
+                                className="plusBtn"
+                                onClick={() => setIsAddingMode(!isAddingMode)}>
+                                &#43;
+                            </button>
                         }
                     </div>
                 }
