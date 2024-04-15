@@ -323,3 +323,7 @@ button {
     height: 45px;
     width: 15%
 }
+
+.dropdown-toggle-custom::after {
+    display: none !important;
+}
