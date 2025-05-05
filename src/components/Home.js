@@ -32,7 +32,7 @@ function Home() {
     const [refresh, setRefresh] = useState(false);
     const [isAddingMode, setIsAddingMode] = useState(false);
 
-    const userList = ['dv_', 'fz_'];
+    const userList = ['fz_', 'dv_'];
     const [userName, setUserName] = useState(userList[0]);
     const [isPrimary, setIsPrimary] = useState(true);
 
@@ -255,7 +255,6 @@ function Home() {
                                     </DropdownMenu>
                                 </Dropdown>
 
-
                                 <Dropdown
                                     className="listInput"
                                     disabled={isLoading}
@@ -265,7 +264,7 @@ function Home() {
                                         backgroundColor: 'transparent',
                                         borderColor: 'transparent',
                                         color: '#046',
-                                        width: '275px'
+                                        width: '250px'
                                     }} caret>
                                         {activeList}
                                     </DropdownToggle>
@@ -296,21 +295,21 @@ function Home() {
                                     </DropdownMenu>
                                 </Dropdown>
                                 {/*</div>*/}
-                                {/*<div style={{width: '50px'}}>*/}
-                                {/*    <button*/}
-                                {/*        onClick={() => {*/}
-                                {/*            setIsPrimary(!isPrimary)*/}
-                                {/*        }}*/}
-                                {/*        className="btn btn-light mx-4 d-flex justify-content-center align-items-center"*/}
-                                {/*        style={{width: '35px', height: '35px', borderRadius: '100%'}}>*/}
+                                <div style={{width: '50px'}}>
+                                    <button
+                                        onClick={() => {
+                                            setIsPrimary(!isPrimary)
+                                        }}
+                                        className="btn btn-light mx-1 mt-1 d-flex justify-content-center align-items-center"
+                                        style={{width: '35px', height: '38px', borderRadius: '25%'}}>
 
-                                {/*        {isPrimary === true ?*/}
-                                {/*            <span>&#128105;&#127995;</span>*/}
-                                {/*            :*/}
-                                {/*            <span>&#128104;&#127995;</span>*/}
-                                {/*        }*/}
-                                {/*    </button>*/}
-                                {/*</div>*/}
+                                        {isPrimary === true ?
+                                            <span>&#128105;&#127995;</span>
+                                            :
+                                            <span>&#128104;&#127995;</span>
+                                        }
+                                    </button>
+                                </div>
                             </div>
                             {/*</div>*/}
                         </th>
