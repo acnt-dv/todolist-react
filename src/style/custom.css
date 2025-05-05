@@ -1,0 +1,329 @@
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 500;
+    src: url(../../public/fonts/IRANSans/IRANSans-web.eot);
+    src: url(../../public/fonts/IRANSans/IRANSans-web.eot?#iefix) format("embedded-opentype"),
+    url(../../public/fonts/IRANSans/IRANSans-web.woff2) format("woff2"),
+    url(../../public/fonts/IRANSans/IRANSans-web.woff) format("woff"),
+    url(../../public/fonts/IRANSans/IRANSans-web.ttf) format("truetype")
+}
+
+* {
+    font-family: IRANSans, sans-serif;
+}
+
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.center-div {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #046;
+}
+
+.center-div-col {
+    display: flex;
+    direction: rtl;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.center-div-row {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.center-div-row-full {
+    background-color: #046;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableOdd {
+    display: flex;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.tableNormal {
+    display: flex;
+    width: 100%;
+    background-color: #E5E5E5;
+}
+
+#items {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+
+#items td,
+#items th {
+    text-align: right;
+    padding: 18px 24px 18px 18px;
+}
+
+#items th {
+    text-align: right;
+    padding: 24px;
+    background-color: #046;
+    color: white;
+}
+
+#item td {
+    margin-bottom: 100px;
+}
+
+#items tr:nth-child(even) {
+    background-color: #F2F2F2;
+}
+
+#items tr:hover {
+    background-color: #DDD;
+}
+
+.table-body {
+    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.left-stick {
+    margin-left: -43px;
+}
+
+.width-sm {
+    width: 5%;
+    text-align: center;
+}
+
+.width-md {
+    width: 15%;
+    text-align: left;
+}
+
+.width-lg {
+    width: 70%;
+    text-align: left;
+}
+
+.textBox {
+    width: 94%;
+    height: 70%;
+    border-radius: 5px;
+    padding: 0%;
+    margin: 0%;
+    font-size: large;
+}
+
+.submitBtn {
+    width: 5%;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    background-color: #FFF;
+    border-radius: 25px;
+    color: #046;
+    font-size: xx-large;
+}
+
+.trashBtn {
+    width: 55px;
+    height: 55px;
+    font-size: 28px;
+    color: darkred;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 10px 18px #888888;
+}
+
+.full {
+    width: 100%;
+    height: 45px;
+    display: block;
+    border: none;
+    background-color: none;
+    box-shadow: 5px 10px 18px #888888;
+}
+
+.submissionForm {
+    display: flex;
+    direction: ltr;
+    /*background-color: #888888;*/
+    width: 100%;
+    height: 45px;
+    /*padding: 2px;*/
+    /*border: #888888;*/
+    border-radius: 10px;
+    /*box-shadow: 5px 10px 18px #888888;*/
+}
+
+.plusBtn {
+    width: 15px;
+    aspect-ratio : 1 / 1;
+    /*height: auto;*/
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    text-justify: distribute-center-last;
+    border-radius: 100%;
+    font-size: 48px;
+    top: -25px;
+    left: 2px;
+    position: absolute;
+}
+
+input {
+    /*border: solid 0.5 #046;*/
+    color: #046;
+    background-color: whitesmoke;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding-right: 10px;
+    font-size: larger;
+    text-align: right;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    width: 45px;
+    border: none;
+    border-radius: 10%;
+    /*border-left: 1px solid whitesmoke;*/
+    background: #046;
+    color: whitesmoke;
+    font-size: xx-large;
+}
+
+.dropDown {
+    background-color: red;
+    direction: ltr;
+    text-align: left;
+}
+
+@media only screen and (min-width: 600px) {
+    html {
+        display: flex;
+        justify-content: center;
+        background-color: whitesmoke;
+    }
+
+    body {
+        justify-content: center;
+        justify-items: center;
+        justify-self: center;
+        width: 50%;
+    }
+}
+
+.loaderStyle {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(125, 125, 125, 0.5);
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.modalStyle {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    border-radius: 10px;
+    bottom: 20%;
+    padding: 15px;
+    background-color: rgba(0, 68, 102, 0.9);
+    color: white;
+    z-index: 999;
+}
+
+.addCategoryButton {
+    border-radius: 0 15px 15px 0;
+    border-style: solid;
+    border-color: white;
+    padding: 2px;
+    min-width: 75px;
+    width: 25%
+}
+
+.addCategoryInput {
+    border-radius: 15px 0 0 15px;
+    border: none;
+    background-color: white;
+    padding: 2px;
+    width: 75%;
+}
+
+.addItemButton {
+    border-radius: 0 15px 15px 0;
+    border-style: solid;
+    border-color: white;
+    padding: 2px;
+    max-width: 50px;
+    height: 45px;
+    width: 15%
+}
+
+.addItemInput {
+    border-radius: 15px 0 0 15px;
+    border: none;
+    background-color: white;
+    padding: 2px;
+    height: 45px;
+    width: 85%;
+}
+
+.listInput {
+    border-radius: 15px 0 0 15px;
+    border: none;
+    background-color: white;
+    padding: 2px;
+    height: 45px;
+    width: 85%;
+}
+
+.listButton {
+    border-radius: 0 15px 15px 0;
+    border-style: solid;
+    border-color: white;
+    padding: 2px;
+    max-width: 50px;
+    height: 45px;
+    width: 15%
+}
+
+.dropdown-toggle-custom::after {
+    display: none !important;
+}
