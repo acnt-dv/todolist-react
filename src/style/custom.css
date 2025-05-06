@@ -2,11 +2,11 @@
     font-family: IRANSans;
     font-style: normal;
     font-weight: 500;
-    src: url(../../public/fonts/IRANSans/IRANSans-web.eot);
-    src: url(../../public/fonts/IRANSans/IRANSans-web.eot?#iefix) format("embedded-opentype"),
-    url(../../public/fonts/IRANSans/IRANSans-web.woff2) format("woff2"),
-    url(../../public/fonts/IRANSans/IRANSans-web.woff) format("woff"),
-    url(../../public/fonts/IRANSans/IRANSans-web.ttf) format("truetype")
+    src: url(../../fonts/IRANSans/IRANSans-web.eot);
+    src: url(../../fonts/IRANSans/IRANSans-web.eot?#iefix) format("embedded-opentype"),
+    url(../../fonts/IRANSans/IRANSans-web.woff2) format("woff2"),
+    url(../../fonts/IRANSans/IRANSans-web.woff) format("woff"),
+    url(../../fonts/IRANSans/IRANSans-web.ttf) format("truetype")
 }
 
 * {
