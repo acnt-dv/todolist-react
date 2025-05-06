@@ -10,8 +10,8 @@ export default defineConfig({
     }
   })],
   esbuild: {
-    loader: 'jsx', // این خط مهمه 👇
-    include: /src\/.*\.js$/, // فقط فایل‌های .js داخل src
+    loader: 'jsx',
+    include: /src\/.*\.js$/,
   },
   server: {
     port: 3000,
