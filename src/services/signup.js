@@ -16,10 +16,12 @@ export default async function signup(input) {
     console.log('update config', config);
     await axios(config)
         .then(function (response) {
+            if (!response?.data?.data) throw new Error(response?.data?.errorMessage);
             result = (response.data);
         })
         .catch(function (error) {
             console.error(error);
+            throw error;
         });
     return result;
 }
