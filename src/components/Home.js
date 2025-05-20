@@ -435,7 +435,7 @@ function Home() {
 
                                         <tr key={item.id}
                                             className={index % 2 === 0 ? "tableOdd line-through" : "tableNormal line-through"}>
-                                            <td className="w-100 line-through" onClick={() => handleItemClicked(item)}>
+                                            <td className="w-100 line-through" style={{textDecoration: 'line-through', color: 'red'}} onClick={() => handleItemClicked(item)}>
                                                 {item.items}
                                             </td>
                                         </tr>
