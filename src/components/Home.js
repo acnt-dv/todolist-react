@@ -12,6 +12,7 @@ import { AddCategoryModal } from "./Modals/AddCategoryModal";
 import insertCategoryService from "../services/insertCategoryService";
 import deleteCategoryService from "../services/deleteCategoryService";
 import login from "../services/login";
+import signup from "../services/signup";
 
 function Home() {
 
@@ -42,6 +43,7 @@ function Home() {
 
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [msg, setMsg] = useState();
 
     function insertCategory(category) {
         setIsLoading(true);
@@ -172,21 +174,29 @@ function Home() {
     }
 
     const handleLogin = async () => {
-        const loginResult = await login({ username, password });
-        setIsLoggedIn(true);
-        setUserName(`${username}_`)
+        try {
+            const loginResult = await login({ username, password });
+            setIsLoggedIn(true);
+            setUserName(`${username}_`);
+        } catch (error) {
+            setMsg((error.toString()));
+        }
     }
 
-    const handleSignUp = () => {
-        setIsLoggedIn(false);
-        setLoginModal(false)
-        setSignupModal(true);
+    const handleSignUp = async () => {
+        try {
+            const signupResult = await signup({ username, password });
+            console.log(signupResult);
+            const loginResult = await login({ username, password });
+            console.log(loginResult);
+            setIsLoggedIn(true);
+            setUserName(`${username}_`);
+            setSignupModal(false);
+            setLoginModal(false);
+        } catch (error) {
+            setMsg((error.toString()));
+        }
     }
-
-    // useEffect(() => {
-    //     if (isPrimary) setUserName(userList[0]);
-    //     else setUserName(userList[1]);
-    // }, [isPrimary]);
 
     useEffect(() => {
         reload();
@@ -465,8 +475,8 @@ function Home() {
                     <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                     <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                     <button onClick={handleLogin} style={{ borderRadius: '10px', width: '100%' }}>Login</button>
-                    {/* <p className="message">{'msg'}</p> */}
-                    <p className="toggle" onClick={() => setSignupModal(true)} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
+                    <p className="message">{msg}</p>
+                    <p className="toggle" onClick={() => { setSignupModal(true); setMsg(''); }} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
                         <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Sign up</p>
                     </p>
                 </div>
@@ -477,8 +487,8 @@ function Home() {
                     <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                     <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                     <button onClick={handleSignUp} style={{ borderRadius: '10px', width: '100%' }}>Sign Up</button>
-                    {/* <p className="message" style={{ color: msg.includes('successful') ? 'green' : 'red' }}>{msg}</p> */}
-                    <p className="toggle" onClick={() => { setLoginModal(true); setSignupModal(false) }} style={{ display: 'flex', justifyContent: 'center' }}>Already have an account?
+                    <p className="message" style={{ color: msg.includes('successful') ? 'green' : 'red' }}>{msg}</p>
+                    <p className="toggle" onClick={() => { setLoginModal(true); setSignupModal(false); setMsg(''); }} style={{ display: 'flex', justifyContent: 'center' }}>Already have an account?
                         <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Login</p>
                     </p>
                 </div>
