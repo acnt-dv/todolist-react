@@ -38,6 +38,7 @@ function Home() {
     const [isPrimary, setIsPrimary] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
+    const [signupModal, setSignupModal] = useState(false);
 
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
@@ -177,7 +178,9 @@ function Home() {
     }
 
     const handleSignUp = () => {
-
+        setIsLoggedIn(false);
+        setLoginModal(false)
+        setSignupModal(true);
     }
 
     // useEffect(() => {
@@ -456,15 +459,27 @@ function Home() {
 
                 </div>
             }
-            {!isLoggedIn &&
-                <div style={{ position: 'absolute', top: '25%', padding: '16px' }}>
+            {!isLoggedIn && !signupModal &&
+                <div style={{ position: 'absolute', top: '25%', padding: '16px', width: '100%' }}>
                     <h2>Login</h2>
                     <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                     <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                     <button onClick={handleLogin} style={{ borderRadius: '10px', width: '100%' }}>Login</button>
                     {/* <p className="message">{'msg'}</p> */}
-                    <p className="toggle" onClick={handleSignUp} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
+                    <p className="toggle" onClick={() => setSignupModal(true)} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
                         <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Sign up</p>
+                    </p>
+                </div>
+            }
+            {signupModal &&
+                <div style={{ position: 'absolute', top: '25%', padding: '16px', display: 'grid', width: '100%' }}>
+                    <h2>Sign Up</h2>
+                    <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
+                    <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
+                    <button onClick={handleSignUp} style={{ borderRadius: '10px', width: '100%' }}>Sign Up</button>
+                    {/* <p className="message" style={{ color: msg.includes('successful') ? 'green' : 'red' }}>{msg}</p> */}
+                    <p className="toggle" onClick={() => { setLoginModal(true); setSignupModal(false) }} style={{ display: 'flex', justifyContent: 'center' }}>Already have an account?
+                        <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Login</p>
                     </p>
                 </div>
             }
