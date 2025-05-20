@@ -41,8 +41,8 @@ function Home() {
     const [loginModal, setLoginModal] = useState(false);
     const [signupModal, setSignupModal] = useState(false);
 
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [msg, setMsg] = useState();
 
     function insertCategory(category) {
@@ -164,37 +164,54 @@ function Home() {
     }
 
     const handleUser = () => {
-        if (isLoggedIn) {
-            setLoginModal(false);
-
-        } else {
-            setLoginModal(true);
-        }
-
+        setIsLoggedIn(false);
+        setUsername('');
+        setPassword('');
+        setMsg('');
     }
 
     const handleLogin = async () => {
         try {
+            if (!username.trim() || !password.trim()) {
+                setMsg('Username and password are required');
+                return;
+            }
+
+            if (password?.length < 4) {
+                setMsg('Password must be at least 4 characters');
+                return;
+            }
+
             const loginResult = await login({ username, password });
             setIsLoggedIn(true);
             setUserName(`${username}_`);
         } catch (error) {
-            setMsg((error.toString()));
+            setMsg(error?.response?.data?.errorMessage);
         }
     }
 
     const handleSignUp = async () => {
         try {
+            if (!username.trim() || !password.trim()) {
+                setMsg('Username and password are required');
+                return;
+            }
+
+            if (password?.length < 4) {
+                setMsg('Password must be at least 4 characters');
+                return;
+            }
+
             const signupResult = await signup({ username, password });
-            console.log(signupResult);
+            console.info(signupResult);
             const loginResult = await login({ username, password });
-            console.log(loginResult);
+            console.info(loginResult);
             setIsLoggedIn(true);
             setUserName(`${username}_`);
             setSignupModal(false);
             setLoginModal(false);
         } catch (error) {
-            setMsg((error.toString()));
+            setMsg(error?.response?.data?.errorMessage);
         }
     }
 
@@ -346,14 +363,14 @@ function Home() {
                                             //     setIsPrimary(!isPrimary)
                                             // }}
                                             onClick={handleUser}
-                                            className="btn btn-light mx-1 mt-1 d-flex justify-content-center align-items-center"
-                                            style={{ width: '35px', height: '38px', borderRadius: '25%' }}>
-
-                                            {isPrimary === true ?
+                                            className="btn btn-light mx-3 mt-1 d-flex justify-content-center align-items-center"
+                                            style={{ width: '35px', height: '35px', borderStyle: '5px solid', borderRadius: '100%', borderColor: 'white', background: 'transparent' }}>
+                                            <span>&#128128;</span>
+                                            {/* {isPrimary === true ?
                                                 <span>&#128105;&#127995;</span>
                                                 :
                                                 <span>&#128104;&#127995;</span>
-                                            }
+                                            } */}
                                         </button>
                                     </div>
                                 </div>
