@@ -27,7 +27,7 @@
     text-align: center;
     width: 100%;
     height: 100%;
-    background-color: #046;
+    background-color: #CCC;
 }
 
 .center-div-col {
@@ -52,7 +52,7 @@
 }
 
 .center-div-row-full {
-    background-color: #046;
+    background-color: #444;
     position: relative;
     width: 100%;
     justify-content: center;
@@ -86,7 +86,7 @@
 #items th {
     text-align: right;
     padding: 24px;
-    background-color: #046;
+    background-color: #777;
     color: white;
 }
 
@@ -144,7 +144,7 @@
     margin: 0%;
     background-color: #FFF;
     border-radius: 25px;
-    color: #046;
+    color: #777;
     font-size: xx-large;
 }
 
@@ -185,7 +185,7 @@
     aspect-ratio : 1 / 1;
     /*height: auto;*/
     background-color: transparent;
-    color: white;
+    color: #777;
     text-align: center;
     text-justify: distribute-center-last;
     border-radius: 100%;
@@ -197,11 +197,11 @@
 
 input {
     /*border: solid 0.5 #046;*/
-    color: #046;
+    color: #777;
     background-color: whitesmoke;
     width: 100%;
     border: none;
-    border-radius: 10px;
+    border-radius: 0px;
     padding-right: 10px;
     font-size: larger;
     text-align: right;
@@ -216,7 +216,7 @@ button {
     border: none;
     border-radius: 10%;
     /*border-left: 1px solid whitesmoke;*/
-    background: #046;
+    background: #777;
     color: whitesmoke;
     font-size: xx-large;
 }
@@ -264,7 +264,7 @@ button {
     border-radius: 10px;
     bottom: 20%;
     padding: 15px;
-    background-color: rgba(0, 68, 102, 0.9);
+    background-color: rgba(100, 100, 100, 0.9);
     color: white;
     z-index: 999;
 }

@@ -6,10 +6,12 @@ function Login({ handleLogin, onSignup, username, setUsername, password, setPass
                 <h2>Login</h2>
                 <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                 <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                <button onClick={handleLogin} style={{ borderRadius: '10px', width: '100%' }}>Login</button>
-                <p className="message">{msg}</p>
+                <button onClick={handleLogin} style={{ borderRadius: '0', width: '100%', backgroundColor: 'gray' }}>Login</button>
+                {msg?.length > 0 &&
+                    <p className="message">{msg}</p>
+                }
                 <p className="toggle" onClick={onSignup} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
-                    <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Sign up</p>
+                    <p style={{ marginLeft: '8px', marginRight: '4px', color: 'gray' }}>Sign up</p>
                 </p>
             </div>
         </div>

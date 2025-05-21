@@ -302,7 +302,7 @@ function Home() {
                                                         cursor: 'pointer',
                                                         fontSize: '12px',
                                                         marginTop: '0px',
-                                                        color: '#046'
+                                                        color: '#777'
                                                     }}
                                                     onClick={() => deleteCategory()}>&#xf1f8; &nbsp;
                                                     <p style={{ textAlign: 'center' }}>{' حذف لیست'}</p>
@@ -321,7 +321,7 @@ function Home() {
                                                         cursor: 'pointer',
                                                         fontSize: '12px',
                                                         marginTop: '0px',
-                                                        color: '#046'
+                                                        color: '#777'
                                                     }}>&#xf067; &nbsp;
                                                     <p style={{ textAlign: 'center' }}>{' افزودن لیست '}</p>
                                                 </p>
@@ -338,7 +338,7 @@ function Home() {
                                         <DropdownToggle style={{
                                             backgroundColor: 'transparent',
                                             borderColor: 'transparent',
-                                            color: '#046',
+                                            color: '#777',
                                             width: '250px'
                                         }} caret>
                                             {activeList}
@@ -394,7 +394,7 @@ function Home() {
                         {isLoading &&
                             <div className='loaderStyle'>
                                 <div className={`spinner-border spinner-border-lg  mt-5`}
-                                    style={{ width: '125px', height: '125px', color: '#046D' }}
+                                    style={{ width: '125px', height: '125px', color: '#777' }}
                                     role="status" />
                             </div>}
 
@@ -448,7 +448,7 @@ function Home() {
 
                                         <tr key={item.id}
                                             className={index % 2 === 0 ? "tableOdd line-through" : "tableNormal line-through"}>
-                                            <td className="w-100 line-through" style={{ textDecoration: 'line-through', color: 'red' }} onClick={() => handleItemClicked(item)}>
+                                            <td className="w-100 line-through" style={{ textDecoration: 'line-through', color: 'black', textDecorationThickness: '3px', textDecorationColor: 'red' }} onClick={() => handleItemClicked(item)}>
                                                 {item.items}
                                             </td>
                                         </tr>
