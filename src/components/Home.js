@@ -14,6 +14,7 @@ import deleteCategoryService from "../services/deleteCategoryService";
 import login from "../services/login";
 import signup from "../services/signup";
 import Login from "./Login";
+import Signup from "./Signup";
 
 function Home() {
 
@@ -220,6 +221,13 @@ function Home() {
         setSignupModal(true);
         setMsg('');
     }
+
+    const onLogin = () => {
+        setLoginModal(true);
+        setSignupModal(false);
+        setMsg('');
+    }
+
     useEffect(() => {
         reload();
     }, [userName]);
@@ -492,29 +500,28 @@ function Home() {
                 </div>
             }
             {!isLoggedIn && !signupModal &&
-                // <div style={{ position: 'absolute', top: '25%', padding: '16px', width: '100%' }}>
-                //     <h2>Login</h2>
-                //     <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                //     <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                //     <button onClick={handleLogin} style={{ borderRadius: '10px', width: '100%' }}>Login</button>
-                //     <p className="message">{msg}</p>
-                //     <p className="toggle" onClick={() => { setSignupModal(true); setMsg(''); }} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
-                //         <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Sign up</p>
-                //     </p>
-                // </div>
-                <Login onSignup={onSignup} username={username} password={password} setUsername={setUsername} setPassword={setPassword} msg={msg} setMsg={setMsg} handleLogin={handleLogin} />
+                <Login
+                    onSignup={onSignup}
+                    username={username}
+                    password={password}
+                    setUsername={setUsername}
+                    setPassword={setPassword}
+                    msg={msg}
+                    setMsg={setMsg}
+                    handleLogin={handleLogin}
+                />
             }
             {signupModal &&
-                <div style={{ position: 'absolute', top: '25%', padding: '16px', display: 'grid', width: '100%' }}>
-                    <h2>Sign Up</h2>
-                    <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                    <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                    <button onClick={handleSignUp} style={{ borderRadius: '10px', width: '100%' }}>Sign Up</button>
-                    <p className="message" style={{ color: msg.includes('successful') ? 'green' : 'red' }}>{msg}</p>
-                    <p className="toggle" onClick={() => { setLoginModal(true); setSignupModal(false); setMsg(''); }} style={{ display: 'flex', justifyContent: 'center' }}>Already have an account?
-                        <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Login</p>
-                    </p>
-                </div>
+                <Signup
+                    onLogin={onLogin}
+                    username={username}
+                    password={password}
+                    setUsername={setUsername}
+                    setPassword={setPassword}
+                    msg={msg}
+                    setMsg={setMsg}
+                    handleSignUp={handleSignUp}
+                />
             }
         </div>
     );
