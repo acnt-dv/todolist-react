@@ -13,6 +13,7 @@ import insertCategoryService from "../services/insertCategoryService";
 import deleteCategoryService from "../services/deleteCategoryService";
 import login from "../services/login";
 import signup from "../services/signup";
+import Login from "./Login";
 
 function Home() {
 
@@ -215,6 +216,10 @@ function Home() {
         }
     }
 
+    const onSignup = () => {
+        setSignupModal(true);
+        setMsg('');
+    }
     useEffect(() => {
         reload();
     }, [userName]);
@@ -435,7 +440,7 @@ function Home() {
 
                                         <tr key={item.id}
                                             className={index % 2 === 0 ? "tableOdd line-through" : "tableNormal line-through"}>
-                                            <td className="w-100 line-through" style={{textDecoration: 'line-through', color: 'red'}} onClick={() => handleItemClicked(item)}>
+                                            <td className="w-100 line-through" style={{ textDecoration: 'line-through', color: 'red' }} onClick={() => handleItemClicked(item)}>
                                                 {item.items}
                                             </td>
                                         </tr>
@@ -487,16 +492,17 @@ function Home() {
                 </div>
             }
             {!isLoggedIn && !signupModal &&
-                <div style={{ position: 'absolute', top: '25%', padding: '16px', width: '100%' }}>
-                    <h2>Login</h2>
-                    <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                    <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
-                    <button onClick={handleLogin} style={{ borderRadius: '10px', width: '100%' }}>Login</button>
-                    <p className="message">{msg}</p>
-                    <p className="toggle" onClick={() => { setSignupModal(true); setMsg(''); }} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
-                        <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Sign up</p>
-                    </p>
-                </div>
+                // <div style={{ position: 'absolute', top: '25%', padding: '16px', width: '100%' }}>
+                //     <h2>Login</h2>
+                //     <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
+                //     <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
+                //     <button onClick={handleLogin} style={{ borderRadius: '10px', width: '100%' }}>Login</button>
+                //     <p className="message">{msg}</p>
+                //     <p className="toggle" onClick={() => { setSignupModal(true); setMsg(''); }} style={{ display: 'flex', justifyContent: 'center' }}>Don't have an account?
+                //         <p style={{ marginLeft: '8px', marginRight: '4px', color: 'blue' }}>Sign up</p>
+                //     </p>
+                // </div>
+                <Login onSignup={onSignup} username={username} password={password} setUsername={setUsername} setPassword={setPassword} msg={msg} setMsg={setMsg} handleLogin={handleLogin} />
             }
             {signupModal &&
                 <div style={{ position: 'absolute', top: '25%', padding: '16px', display: 'grid', width: '100%' }}>
