@@ -34,7 +34,7 @@ function Home() {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [activeItem, setActiveItem] = useState('');
     const [refresh, setRefresh] = useState(false);
-    const [isAddingMode, setIsAddingMode] = useState(false);
+    const [isAddingMode, setIsAddingMode] = useState(true);
 
     const userList = ['dv_', 'fz_'];
     const [userName, setUserName] = useState(userList[0]);
@@ -103,8 +103,8 @@ function Home() {
     }
 
     function handleMouseClicked(event) {
-        if (event.target?.name !== addingItems)
-            setIsAddingMode(false);
+        // if (event.target?.name !== addingItems)
+        //     setIsAddingMode(false);
     }
 
     async function handleRefresh() {
@@ -154,7 +154,7 @@ function Home() {
             return firstItem;
         }
 
-        setIsAddingMode(false);
+        // setIsAddingMode(false);
         setIsLoading(true);
         try {
             getCategoryList().then((firstItem) => updateList(firstItem).then(() => setIsLoading(false)));
@@ -227,6 +227,10 @@ function Home() {
         setSignupModal(false);
         setMsg('');
     }
+
+    useEffect(() => {
+        if (!showCategoryModal) setIsAddingMode(true);
+    }, [showCategoryModal]);
 
     useEffect(() => {
         reload();
@@ -314,6 +318,7 @@ function Home() {
 
                                             <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
                                                 onClick={() => {
+                                                    setIsAddingMode(false);
                                                     setShowCategoryModal(true);
                                                 }}>
                                                 <p className="fa left-stick d-flex"
@@ -324,6 +329,21 @@ function Home() {
                                                         color: '#777'
                                                     }}>&#xf067; &nbsp;
                                                     <p style={{ textAlign: 'center' }}>{' افزودن لیست '}</p>
+                                                </p>
+                                            </DropdownItem>
+
+                                            <DropdownItem divider />
+
+                                            <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
+                                                onClick={handleUser}>
+                                                <p className="fa left-stick d-flex"
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        fontSize: '12px',
+                                                        marginTop: '0px',
+                                                        color: '#777'
+                                                    }}>&#10006; &nbsp;
+                                                    <p style={{ textAlign: 'center' }}>{'خروج'}</p>
                                                 </p>
                                             </DropdownItem>
 
@@ -370,7 +390,7 @@ function Home() {
                                         </DropdownMenu>
                                     </Dropdown>
                                     {/*</div>*/}
-                                    <div style={{ width: '50px' }}>
+                                    {/* <div style={{ width: '50px' }}>
                                         <button
                                             // onClick={() => {
                                             //     setIsPrimary(!isPrimary)
@@ -379,13 +399,13 @@ function Home() {
                                             className="btn btn-light mx-3 mt-1 d-flex justify-content-center align-items-center"
                                             style={{ width: '35px', height: '35px', borderStyle: '5px solid', borderRadius: '100%', borderColor: 'white', background: 'transparent' }}>
                                             <span>&#128128;</span>
-                                            {/* {isPrimary === true ?
+                                            {isPrimary === true ?
                                                 <span>&#128105;&#127995;</span>
                                                 :
                                                 <span>&#128104;&#127995;</span>
-                                            } */}
+                                            }
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 {/*</div>*/}
                             </th>
@@ -459,37 +479,32 @@ function Home() {
                         {/*</ReactPullToRefresh>*/}
                     </table>
 
-                    {showCategoryModal ?
-                        <div />
-                        :
-                        <div className="center-div-row">
-                            {isAddingMode ?
-                                <div className="d-flex justify-content-center" style={{ width: '90%' }}>
-                                    <button
-                                        className="addItemButton"
-                                        name={addingItems}
-                                        disabled={isLoading}
-                                        onClick={() => insertItem(activeList)}>
-                                        &#10148;{/*&#94;*/}
-                                    </button>
-                                    <input ref={inputRef}
-                                        name={addingItems}
-                                        className="addItemInput"
-                                        autoFocus
-                                        disabled={isLoading} value={newItemValue} onChange={e => {
-                                            setBody(e.target.value);
-                                            setNewItemValue(e.target.value);
-                                        }} />
-                                </div>
-                                :
-                                <button
-                                    name={addingItems}
-                                    className="plusBtn"
-                                    onClick={() => setIsAddingMode(!isAddingMode)}>
-                                    &#43;
-                                </button>
-                            }
+                    {isAddingMode &&
+                        <div className="center-div" style={{ width: '100%', paddingLeft: '24px', paddingRight: '24px' }}>
+                            <button
+                                className="addItemButton"
+                                name={addingItems}
+                                disabled={isLoading}
+                                onClick={() => insertItem(activeList)}>
+                                {/* &#94; */}
+                                <p style={{ transform: 'rotate(-90deg)', marginTop: '-2px', marginLeft: '2px' }}>&#10148;</p>
+                            </button>
+                            <input ref={inputRef}
+                                name={addingItems}
+                                className="addItemInput"
+                                autoFocus
+                                disabled={isLoading} value={newItemValue} onChange={e => {
+                                    setBody(e.target.value);
+                                    setNewItemValue(e.target.value);
+                                }} />
                         </div>
+                        // :
+                        // <button
+                        //     name={addingItems}
+                        //     className="plusBtn"
+                        //     onClick={() => setIsAddingMode(!isAddingMode)}>
+                        //     &#43;
+                        // </button>
                     }
                     {showCategoryModal &&
                         <AddCategoryModal submit={insertCategory} isLoading={isLoading} setShowModal={setShowCategoryModal} />
