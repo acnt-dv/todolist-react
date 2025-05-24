@@ -2,7 +2,7 @@ function Signup({ handleSignUp, onLogin, username, setUsername, password, setPas
 
     return (
         <div style={{ padding: '16px', width: '100%', height: '100vh', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ display: 'grid', width: '100%'}}>
+            <div style={{ display: 'grid', width: '100%', maxWidth: '480px'}}>
                 <h2>Sign Up</h2>
                 <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                 <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />

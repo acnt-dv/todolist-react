@@ -39,7 +39,7 @@ function Home() {
     const userList = ['dv_', 'fz_'];
     const [userName, setUserName] = useState(userList[0]);
     const [isPrimary, setIsPrimary] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
     const [signupModal, setSignupModal] = useState(false);
 

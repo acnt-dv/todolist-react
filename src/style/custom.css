@@ -182,9 +182,10 @@
     /*background-color: #888888;*/
     width: 100%;
     height: 45px;
+    margin-top: 14px;
     /*padding: 2px;*/
     /*border: #888888;*/
-    border-radius: 10px;
+    /* border-radius: 10px; */
     /*box-shadow: 5px 10px 18px #888888;*/
 }
 
@@ -278,7 +279,7 @@ button {
 }
 
 .addCategoryButton {
-    border-radius: 0 15px 15px 0;
+    border-radius: 0 4px 4px 0;
     border-style: solid;
     border-color: white;
     padding: 2px;
@@ -287,11 +288,11 @@ button {
 }
 
 .addCategoryInput {
-    border-radius: 15px 0 0 15px;
+    border-radius: 4px 0 0 4px;
     border: none;
     background-color: white;
     padding: 2px;
-    width: 75%;
+    /* width: 75%; */
 }
 
 .addItemButton {
