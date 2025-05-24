@@ -36,10 +36,10 @@ function Home() {
     const [refresh, setRefresh] = useState(false);
     const [isAddingMode, setIsAddingMode] = useState(false);
 
-    const userList = ['fz_', 'dv_'];
+    const userList = ['dv_', 'fz_'];
     const [userName, setUserName] = useState(userList[0]);
     const [isPrimary, setIsPrimary] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [loginModal, setLoginModal] = useState(false);
     const [signupModal, setSignupModal] = useState(false);
 
@@ -410,7 +410,7 @@ function Home() {
                                 item.isDone === 0 ?
                                     <SwipeToDelete
                                         onDelete={() => handleSwipeToDelete(item)}
-                                        height={50}
+                                        height={55}
                                         transitionDuration={250}
                                         deleteWidth={75}
                                         deleteThreshold={75}
@@ -422,7 +422,8 @@ function Home() {
                                         className="my-swiper"
                                         rtl={false}>
 
-                                        <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}>
+                                        {/* <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}> */}
+                                        <tr key={item.id} className="tableStyle">
                                             <td className="w-100" onClick={() => {
                                                 handleItemClicked(item)
                                             }}>
@@ -433,7 +434,7 @@ function Home() {
 
                                     <SwipeToDelete
                                         onDelete={() => handleSwipeToDelete(item)}
-                                        height={50}
+                                        height={55}
                                         transitionDuration={250}
                                         deleteWidth={75}
                                         deleteThreshold={75}
@@ -446,8 +447,8 @@ function Home() {
                                         style={{ textDecoration: 'line-through' }}
                                         rtl={false}>
 
-                                        <tr key={item.id}
-                                            className={index % 2 === 0 ? "tableOdd line-through" : "tableNormal line-through"}>
+                                        {/* <tr key={item.id} className={index % 2 === 0 ? "tableOdd line-through" : "tableNormal line-through"}> */}
+                                        <tr key={item.id} className="tableStyle">
                                             <td className="w-100 line-through" style={{ textDecoration: 'line-through', color: 'black', textDecorationThickness: '3px', textDecorationColor: 'red' }} onClick={() => handleItemClicked(item)}>
                                                 {item.items}
                                             </td>

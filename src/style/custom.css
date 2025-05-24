@@ -4,9 +4,9 @@
     font-weight: 500;
     src: url(../../fonts/IRANSans/IRANSans-web.eot);
     src: url(../../fonts/IRANSans/IRANSans-web.eot?#iefix) format("embedded-opentype"),
-    url(../../fonts/IRANSans/IRANSans-web.woff2) format("woff2"),
-    url(../../fonts/IRANSans/IRANSans-web.woff) format("woff"),
-    url(../../fonts/IRANSans/IRANSans-web.ttf) format("truetype")
+        url(../../fonts/IRANSans/IRANSans-web.woff2) format("woff2"),
+        url(../../fonts/IRANSans/IRANSans-web.woff) format("woff"),
+        url(../../fonts/IRANSans/IRANSans-web.ttf) format("truetype")
 }
 
 * {
@@ -69,6 +69,14 @@
     display: flex;
     width: 100%;
     background-color: #E5E5E5;
+}
+
+.tableStyle {
+    display: flex;
+    width: 100%;
+    background-color: #f0f0f0;
+    border-top: 3px solid #FFF;
+    border-bottom: 3px solid #FFF;
 }
 
 #items {
@@ -182,7 +190,7 @@
 
 .plusBtn {
     width: 50px;
-    aspect-ratio : 1 / 1;
+    aspect-ratio: 1 / 1;
     /*height: auto;*/
     background-color: transparent;
     color: #777;
