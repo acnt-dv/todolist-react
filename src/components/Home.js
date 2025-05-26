@@ -166,6 +166,7 @@ function Home() {
     }
 
     const handleUser = () => {
+        localStorage.removeItem('auth');
         setIsLoggedIn(false);
         setUsername('');
         setPassword('');
@@ -185,6 +186,7 @@ function Home() {
             }
 
             const loginResult = await login({ username, password });
+            localStorage.setItem('auth', true);
             setIsLoggedIn(true);
             setUserName(`${username}_`);
         } catch (error) {
@@ -237,6 +239,9 @@ function Home() {
     }, [userName]);
 
     useEffect(() => {
+        const isAlreadyLoggedIn = localStorage.getItem('auth');
+        if (isAlreadyLoggedIn) setIsLoggedIn(true);
+
         if (isLoggedIn) {
             setInterval(() => {
                 setShowModal(false);
