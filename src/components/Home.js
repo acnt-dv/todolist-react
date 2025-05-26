@@ -88,6 +88,7 @@ function Home() {
             "body": body
         }).then(() => {
             setRefresh(!refresh);
+            setIsAddingMode(true);
         });
     }
 
@@ -300,10 +301,17 @@ function Home() {
         setList([]);
         updateList(activeList).then(() => {
             setIsLoading(false);
-            inputRef?.current?.focus();
-            inputRef?.current?.select();
         });
     }, [refresh]);
+
+    useEffect(() => {
+        if (isAddingMode) {
+            setTimeout(() => {
+                inputRef.current?.focus();
+                // inputRef?.current?.select();
+            }, 100);
+        }
+    }, [isAddingMode]);
 
     return (
         <div className="center-div" onClick={(e) => handleMouseClicked(e)} onKeyPress={(e) => {
@@ -537,7 +545,13 @@ function Home() {
                                                             textDecorationColor: 'red',
                                                             textDecorationThickness: '3px',
                                                         }}
-                                                        onClick={() => handleItemClicked(item)}
+                                                        onClick={() => handleItemCopy(item)}
+                                                        onMouseDown={() => startHoldTimer(item)}
+                                                        onMouseUp={clearHoldTimer}
+                                                        onMouseLeave={clearHoldTimer}
+                                                        onTouchStart={() => startHoldTimer(item)}
+                                                        onTouchEnd={clearHoldTimer}
+                                                        onTouchCancel={clearHoldTimer}
                                                     >
                                                         {item.items}
                                                     </td>
@@ -550,32 +564,44 @@ function Home() {
                         {/*</ReactPullToRefresh>*/}
                     </table>
 
-                    {isAddingMode ?
-                        <div className="center-div" style={{ width: '100%', paddingLeft: '24px', paddingRight: '24px' }}>
-                            <button
-                                className="addItemButton"
-                                name={addingItems}
-                                disabled={isLoading}
-                                onClick={() => insertItem(activeList)}>
-                                {/* &#94; */}
-                                <p style={{ transform: 'rotate(-90deg)', marginTop: '-2px', marginLeft: '2px' }}>&#10148;</p>
-                            </button>
-                            <input ref={inputRef}
-                                name={addingItems}
-                                className="addItemInput"
-                                autoFocus
-                                disabled={isLoading} value={newItemValue} onChange={e => {
-                                    setBody(e.target.value);
-                                    setNewItemValue(e.target.value);
-                                }} />
+                    {<div style={{ position: 'relative', width: '100%'}}>
+                        <div className={`transition-wrapper ${isAddingMode ? 'show' : 'hide'}`}>
+                            <div className="center-div" style={{ width: '100%', padding: '0 24px' }}>
+                                <button
+                                    className="addItemButton"
+                                    name={addingItems}
+                                    disabled={isLoading}
+                                    onClick={() => insertItem(activeList)}
+                                >
+                                    <p style={{ transform: 'rotate(-90deg)', marginTop: '-2px', marginLeft: '2px' }}>
+                                        &#10148;
+                                    </p>
+                                </button>
+                                <input
+                                    ref={inputRef}
+                                    name={addingItems}
+                                    className="addItemInput"
+                                    autoFocus
+                                    disabled={isLoading}
+                                    value={newItemValue}
+                                    onChange={e => {
+                                        setBody(e.target.value);
+                                        setNewItemValue(e.target.value);
+                                    }}
+                                />
+                            </div>
                         </div>
-                        :
-                        <button
-                            name={addingItems}
-                            className="plusBtn"
-                            onClick={() => setIsAddingMode(!isAddingMode)}>
-                            &#43;
-                        </button>
+
+                        {!isAddingMode && (
+                            <button
+                                name={addingItems}
+                                className="plusBtn fade-in"
+                                onClick={() => setIsAddingMode(true)}
+                            >
+                                &#43;
+                            </button>
+                        )}
+                    </div>
                     }
                     {showCategoryModal &&
                         <AddCategoryModal submit={insertCategory} isLoading={isLoading} setShowModal={setShowCategoryModal} />
