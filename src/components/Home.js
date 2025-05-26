@@ -16,6 +16,7 @@ import signup from "../services/signup";
 import Login from "./Login";
 import Signup from "./Signup";
 import Collapsible from "./Collapsible";
+import {toast} from "react-toastify";
 
 function Home() {
 
@@ -95,6 +96,15 @@ function Home() {
         setRefresh(!refresh);
     }
 
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(text);
+            alert('Copied to clipboard!');
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
+
     async function updateList(category) {
         try {
             let listItems = JSON.parse(await getList(userName.concat(category)))?.data;
@@ -120,6 +130,15 @@ function Home() {
         //     setIsAddingMode(false);
     }
 
+    const handleItemCopy = async (item) => {
+        try {
+            await navigator.clipboard.writeText(item?.items);
+            toast.success("Copied to clipboard!");
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    }
+
     async function handleRefresh() {
         setRefresh(!refresh);
     }
@@ -138,6 +157,7 @@ function Home() {
     }
 
     function handleItemClicked(item) {
+        debugger
         setActiveItem(item.items);
         setShowModal(true);
     }
@@ -466,6 +486,7 @@ function Home() {
                                             <tr className="tableStyle">
                                                 <td
                                                     className="w-100"
+                                                    onDoubleClick={()=> handleItemCopy(item)}
                                                     onMouseDown={() => startHoldTimer(item)}
                                                     onMouseUp={clearHoldTimer}
                                                     onMouseLeave={clearHoldTimer}
