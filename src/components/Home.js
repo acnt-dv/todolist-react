@@ -20,6 +20,18 @@ import Collapsible from "./Collapsible";
 function Home() {
 
     const inputRef = useRef(null);
+    const holdTimeoutRef = useRef(null);
+
+    const startHoldTimer = (item) => {
+        holdTimeoutRef.current = setTimeout(() => {
+            handleItemClicked(item);
+        }, 400);
+    };
+
+    const clearHoldTimer = () => {
+        clearTimeout(holdTimeoutRef.current);
+        setShowModal(false);
+    };
 
     const addingItems = "ADD_ING_INPUT_S";
 
@@ -454,7 +466,12 @@ function Home() {
                                             <tr className="tableStyle">
                                                 <td
                                                     className="w-100"
-                                                    onClick={() => handleItemClicked(item)}
+                                                    onMouseDown={() => startHoldTimer(item)}
+                                                    onMouseUp={clearHoldTimer}
+                                                    onMouseLeave={clearHoldTimer}
+                                                    onTouchStart={() => startHoldTimer(item)}
+                                                    onTouchEnd={clearHoldTimer}
+                                                    onTouchCancel={clearHoldTimer}
                                                 >
                                                     {item.items}
                                                 </td>
