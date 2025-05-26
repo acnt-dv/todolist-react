@@ -162,6 +162,7 @@ function Home() {
         // } catch (err) {
         //     console.error('Failed to copy:', err);
         // }
+        const text = item?.items;
         if (navigator.clipboard?.writeText) {
             navigator.clipboard.writeText(text).then(() => {
                 console.log('Copied');
