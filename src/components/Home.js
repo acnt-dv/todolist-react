@@ -137,12 +137,40 @@ function Home() {
             setIsAddingMode(false);
     }
 
-    const handleItemCopy = async (item) => {
+    const copyFallback = (text) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';  // avoid scrolling to bottom
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
         try {
-            await navigator.clipboard.writeText(item?.items);
-            toast.success("Copied to clipboard!");
+            const success = document.execCommand('copy');
+            console.log(success ? 'Copied (fallback)' : 'Failed (fallback)');
         } catch (err) {
-            console.error('Failed to copy:', err);
+            console.error('Fallback copy failed:', err);
+        }
+
+        document.body.removeChild(textarea);
+    };
+
+    const handleItemCopy = async (item) => {
+        // try {
+        //     await navigator.clipboard.writeText(item?.items);
+        //     toast.success("Copied to clipboard!");
+        // } catch (err) {
+        //     console.error('Failed to copy:', err);
+        // }
+        if (navigator.clipboard?.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Copied');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                copyFallback(text); // try fallback
+            });
+        } else {
+            copyFallback(text); // fallback for non-secure context
         }
     }
 
@@ -564,7 +592,7 @@ function Home() {
                         {/*</ReactPullToRefresh>*/}
                     </table>
 
-                    {<div style={{ position: 'relative', width: '100%'}}>
+                    {<div style={{ position: 'relative', width: '100%' }}>
                         <div className={`transition-wrapper ${isAddingMode ? 'show' : 'hide'}`}>
                             <div className="center-div" style={{ width: '100%', padding: '0 24px' }}>
                                 <button
