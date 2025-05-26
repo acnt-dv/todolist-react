@@ -192,14 +192,14 @@
 .plusBtn {
     width: 50px;
     aspect-ratio: 1 / 1;
-    /*height: auto;*/
+    height: auto;
     background-color: transparent;
     color: #777;
     text-align: center;
     text-justify: distribute-center-last;
     border-radius: 100%;
     font-size: 48px;
-    top: -25px;
+    bottom: -10px;
     left: 2px;
     position: absolute;
 }

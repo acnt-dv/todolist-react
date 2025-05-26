@@ -16,7 +16,7 @@ import signup from "../services/signup";
 import Login from "./Login";
 import Signup from "./Signup";
 import Collapsible from "./Collapsible";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 function Home() {
 
@@ -48,7 +48,7 @@ function Home() {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [activeItem, setActiveItem] = useState('');
     const [refresh, setRefresh] = useState(false);
-    const [isAddingMode, setIsAddingMode] = useState(true);
+    const [isAddingMode, setIsAddingMode] = useState(false);
 
     const userList = ['dv_', 'fz_'];
     const [userName, setUserName] = useState(userList[0]);
@@ -121,13 +121,19 @@ function Home() {
 
     function handleKeyPress(event) {
         if (event.charCode === 13) {
-            insertItem(activeList);
+            if (loginModal) {
+                handleLogin();
+            } else if (signupModal) {
+                handleSignUp();
+            } else {
+                insertItem(activeList);
+            }
         }
     }
 
     function handleMouseClicked(event) {
-        // if (event.target?.name !== addingItems)
-        //     setIsAddingMode(false);
+        if (event.target?.name !== addingItems)
+            setIsAddingMode(false);
     }
 
     const handleItemCopy = async (item) => {
@@ -157,7 +163,6 @@ function Home() {
     }
 
     function handleItemClicked(item) {
-        debugger
         setActiveItem(item.items);
         setShowModal(true);
     }
@@ -201,6 +206,7 @@ function Home() {
     const handleUser = () => {
         localStorage.removeItem('auth');
         setIsLoggedIn(false);
+        setLoginModal(true);
         setUsername('');
         setPassword('');
         setMsg('');
@@ -221,6 +227,7 @@ function Home() {
             const loginResult = await login({ username, password });
             localStorage.setItem('auth', true);
             setIsLoggedIn(true);
+            setLoginModal(false);
             setUserName(`${username}_`);
         } catch (error) {
             setMsg(error?.response?.data?.errorMessage);
@@ -254,6 +261,7 @@ function Home() {
 
     const onSignup = () => {
         setSignupModal(true);
+        setLoginModal(false);
         setMsg('');
     }
 
@@ -264,7 +272,7 @@ function Home() {
     }
 
     useEffect(() => {
-        if (!showCategoryModal) setIsAddingMode(true);
+        // if (!showCategoryModal) setIsAddingMode(true);
     }, [showCategoryModal]);
 
     useEffect(() => {
@@ -275,7 +283,8 @@ function Home() {
         const isAlreadyLoggedIn = localStorage.getItem('auth');
         if (isAlreadyLoggedIn) setIsLoggedIn(true);
 
-        if (isLoggedIn) {
+        if (isAlreadyLoggedIn) {
+            setLoginModal(false);
             setInterval(() => {
                 setShowModal(false);
             }, 3500);
@@ -356,7 +365,7 @@ function Home() {
 
                                             <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
                                                 onClick={() => {
-                                                    setIsAddingMode(false);
+                                                    // setIsAddingMode(false);
                                                     setShowCategoryModal(true);
                                                 }}>
                                                 <p className="fa left-stick d-flex"
@@ -486,7 +495,7 @@ function Home() {
                                             <tr className="tableStyle">
                                                 <td
                                                     className="w-100"
-                                                    onDoubleClick={()=> handleItemCopy(item)}
+                                                    onClick={() => handleItemCopy(item)}
                                                     onMouseDown={() => startHoldTimer(item)}
                                                     onMouseUp={clearHoldTimer}
                                                     onMouseLeave={clearHoldTimer}
@@ -541,7 +550,7 @@ function Home() {
                         {/*</ReactPullToRefresh>*/}
                     </table>
 
-                    {isAddingMode &&
+                    {isAddingMode ?
                         <div className="center-div" style={{ width: '100%', paddingLeft: '24px', paddingRight: '24px' }}>
                             <button
                                 className="addItemButton"
@@ -560,13 +569,13 @@ function Home() {
                                     setNewItemValue(e.target.value);
                                 }} />
                         </div>
-                        // :
-                        // <button
-                        //     name={addingItems}
-                        //     className="plusBtn"
-                        //     onClick={() => setIsAddingMode(!isAddingMode)}>
-                        //     &#43;
-                        // </button>
+                        :
+                        <button
+                            name={addingItems}
+                            className="plusBtn"
+                            onClick={() => setIsAddingMode(!isAddingMode)}>
+                            &#43;
+                        </button>
                     }
                     {showCategoryModal &&
                         <AddCategoryModal submit={insertCategory} isLoading={isLoading} setShowModal={setShowCategoryModal} />
@@ -577,7 +586,7 @@ function Home() {
 
                 </div>
             }
-            {!isLoggedIn && !signupModal &&
+            {loginModal &&
                 <Login
                     onSignup={onSignup}
                     username={username}
