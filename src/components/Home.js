@@ -15,6 +15,7 @@ import login from "../services/login";
 import signup from "../services/signup";
 import Login from "./Login";
 import Signup from "./Signup";
+import Collapsible from "./Collapsible";
 
 function Home() {
 
@@ -431,55 +432,73 @@ function Home() {
                                 </div>
                             }
 
-                            {list && list.map((item, index) =>
-                                item.isDone === 0 ?
-                                    <SwipeToDelete
-                                        onDelete={() => handleSwipeToDelete(item)}
-                                        height={55}
-                                        transitionDuration={250}
-                                        deleteWidth={75}
-                                        deleteThreshold={75}
-                                        showDeleteAction={true}
-                                        deleteColor="rgba(52, 58, 248, 1.00)"
-                                        deleteText="Done"
-                                        disabled={false}
-                                        id="swiper-1"
-                                        className="my-swiper"
-                                        rtl={false}>
+                            <>
+                                {list && list
+                                    .filter(item => item.isDone === 0)
+                                    .map(item => (
+                                        <SwipeToDelete
+                                            key={item.id}
+                                            onDelete={() => handleSwipeToDelete(item)}
+                                            height={55}
+                                            transitionDuration={250}
+                                            deleteWidth={75}
+                                            deleteThreshold={75}
+                                            showDeleteAction={true}
+                                            deleteColor="rgba(52, 58, 248, 1.00)"
+                                            deleteText="Done"
+                                            disabled={false}
+                                            id={`swiper-${item.id}`}
+                                            className="my-swiper"
+                                            rtl={false}
+                                        >
+                                            <tr className="tableStyle">
+                                                <td
+                                                    className="w-100"
+                                                    onClick={() => handleItemClicked(item)}
+                                                >
+                                                    {item.items}
+                                                </td>
+                                            </tr>
+                                        </SwipeToDelete>
+                                    ))}
 
-                                        {/* <tr key={item.id} className={index % 2 === 0 ? "tableOdd" : "tableNormal"}> */}
-                                        <tr key={item.id} className="tableStyle">
-                                            <td className="w-100" onClick={() => {
-                                                handleItemClicked(item)
-                                            }}>
-                                                {item.items}
-                                            </td>
-                                        </tr>
-                                    </SwipeToDelete> :
-
-                                    <SwipeToDelete
-                                        onDelete={() => handleSwipeToDelete(item)}
-                                        height={55}
-                                        transitionDuration={250}
-                                        deleteWidth={75}
-                                        deleteThreshold={75}
-                                        showDeleteAction={true}
-                                        deleteColor="rgba(252, 58, 48, 1.00)"
-                                        deleteText="Delete"
-                                        disabled={false}
-                                        id="swiper-1"
-                                        className="line-through"
-                                        style={{ textDecoration: 'line-through' }}
-                                        rtl={false}>
-
-                                        {/* <tr key={item.id} className={index % 2 === 0 ? "tableOdd line-through" : "tableNormal line-through"}> */}
-                                        <tr key={item.id} className="tableStyle">
-                                            <td className="w-100 line-through" style={{ textDecoration: 'line-through', color: 'black', textDecorationThickness: '3px', textDecorationColor: 'red' }} onClick={() => handleItemClicked(item)}>
-                                                {item.items}
-                                            </td>
-                                        </tr>
-                                    </SwipeToDelete>
-                            )}
+                                <Collapsible title={`${list && list.filter(item => item.isDone !== 0).length} کار خاتمه یافته است`}>
+                                    {list && list
+                                        .filter(item => item.isDone !== 0)
+                                        .map(item => (
+                                            <SwipeToDelete
+                                                key={item.id}
+                                                onDelete={() => handleSwipeToDelete(item)}
+                                                height={55}
+                                                transitionDuration={250}
+                                                deleteWidth={75}
+                                                deleteThreshold={75}
+                                                showDeleteAction={true}
+                                                deleteColor="rgba(252, 58, 48, 1.00)"
+                                                deleteText="Delete"
+                                                disabled={false}
+                                                id={`swiper-${item.id}`}
+                                                className="my-swiper"
+                                                rtl={false}
+                                            >
+                                                <tr className="tableStyle">
+                                                    <td
+                                                        className="w-100"
+                                                        style={{
+                                                            textDecoration: 'line-through',
+                                                            color: 'black',
+                                                            textDecorationColor: 'red',
+                                                            textDecorationThickness: '3px',
+                                                        }}
+                                                        onClick={() => handleItemClicked(item)}
+                                                    >
+                                                        {item.items}
+                                                    </td>
+                                                </tr>
+                                            </SwipeToDelete>
+                                        ))}
+                                </Collapsible>
+                            </>
                         </div>
                         {/*</ReactPullToRefresh>*/}
                     </table>
