@@ -130,19 +130,17 @@ function Home() {
             handleKeyPress(e);
         }}>
             {isLoggedIn &&
-                <div className="center-div-col">
-                    <Tasks
-                        addingItems={addingItems}
-                        userName={userCategory}
-                        refresh={refresh}
-                        setRefresh={setRefresh}
-                        handleUser={handleUser}
-                        isAddingMode={isAddingMode}
-                        setIsAddingMode={setIsAddingMode}
-                        addByKey={addByKey}
-                        setAddByKey={setAddByKey}
-                    />
-                </div>
+                <Tasks
+                    addingItems={addingItems}
+                    userName={userCategory}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                    handleUser={handleUser}
+                    isAddingMode={isAddingMode}
+                    setIsAddingMode={setIsAddingMode}
+                    addByKey={addByKey}
+                    setAddByKey={setAddByKey}
+                />
             }
             {loginModal &&
                 <Login

@@ -228,7 +228,7 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
     }, [addByKey]);
 
     return (
-        <>
+        <div className="center-div-col">
             <table id="items">
                 <tr>
                     <th className="d-flex w-100 justify-content-center">
@@ -521,6 +521,6 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
             {showModal &&
                 <DescriptionModal item={activeItem} setShowModal={setShowModal} />
             }
-        </>
+        </div>
     )
 }
