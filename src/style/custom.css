@@ -314,19 +314,20 @@ button {
 }
 
 .addCategoryButton {
-    border-radius: 0 4px 4px 0;
+    /* border-radius: 0 4px 4px 0; */
     border-style: solid;
     border-color: white;
-    padding: 2px;
+    padding: 1px;
     min-width: 75px;
     width: 25%
 }
 
 .addCategoryInput {
-    border-radius: 4px 0 0 4px;
-    border: none;
+    /* border-radius: 4px 0 0 4px; */
+    border-style: solid;
+    border-color: white;
     background-color: white;
-    padding: 2px;
+    padding: 1px;
     /* width: 75%; */
 }
 
