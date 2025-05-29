@@ -170,13 +170,14 @@ function Home() {
         }}>
             {!loginModal && !signupModal &&
                 <div style={{ width: '100%', backgroundColor: 'white', display: 'grid', justifyContent: 'end', alignItems: 'center' }}>
-                    <div style={{ minWidth: '100vw', backgroundColor: 'gray', height: '75px', display: 'grid', justifyContent: 'start', alignItems: 'center' }}>
+                    <div style={{ minWidth: '100vw', backgroundColor: 'gray', height: '75px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <HamburgerMenu
                             handleUser={handleUser}
                             setShowCategories={setShowCategories}
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                         />
+                        <button style={{marginLeft: '18px', backgroundColor: 'transparent', fontSize: '36px'}} onClick={()=> {setShowCategories(true)}}>&#11013;</button>
                     </div>
                     {isLoggedIn && showCategories &&
                         <Categories

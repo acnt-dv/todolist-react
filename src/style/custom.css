@@ -208,6 +208,24 @@
     margin-top: 24px;
 }
 
+.backBtn {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    width: 50px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    text-justify: auto;
+    border-radius: 100%;
+    font-size: 56px;
+    margin-top: -10px;
+    /* bottom: 0px;
+    left: 20px;
+    position: absolute; */
+}
+
 .plusBtn {
     transition: opacity 0.3s ease;
     opacity: 1;
