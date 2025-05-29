@@ -5,7 +5,7 @@ export const AddCategoryModal = ({ submit, isLoading, setShowModal }) => {
 
     return (
         <div className="d-flex justify-content-center w-75" onClick={() => setShowModal(false)}>
-            <div className="modalStyle">
+            <div className="categoryModalStyle">
                 <input
                     className="addCategoryInput"
                     autoFocus
