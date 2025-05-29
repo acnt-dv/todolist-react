@@ -4,7 +4,7 @@ function Login({ handleLogin, onSignup, username, setUsername, password, setPass
         <div style={{ padding: '16px', width: '100%', height: '100vh', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ display: 'grid', width: '100%', maxWidth: '480px'}}>
                 <h2>Login</h2>
-                <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
+                <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left', backgroundColor: 'whitesmoke' }} />
                 <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left' }} />
                 <button onClick={handleLogin} style={{ borderRadius: '0', width: '100%', backgroundColor: 'gray' }}>Login</button>
                 {msg?.length > 0 &&
