@@ -119,6 +119,8 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
     };
 
     const handleItemCopy = async (item) => {
+        setIsOpen(false);
+        //
         try {
             await navigator.clipboard.writeText(item?.items);
             toast.success("کپی شد");
