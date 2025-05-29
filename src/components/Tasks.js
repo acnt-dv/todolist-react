@@ -14,7 +14,7 @@ import deleteCategoryService from "../services/deleteCategoryService";
 import Collapsible from "./Collapsible";
 import { toast } from "react-toastify";
 
-export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, isAddingMode, setIsAddingMode, addByKey, setAddByKey }) => {
+export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, isAddingMode, setIsAddingMode, addByKey, setAddByKey, activeList, setActiveList, setIsOpen }) => {
     const inputRef = useRef(null);
     const holdTimeoutRef = useRef(null);
 
@@ -35,7 +35,6 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
-    const [activeList, setActiveList] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -122,9 +121,9 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
     const handleItemCopy = async (item) => {
         try {
             await navigator.clipboard.writeText(item?.items);
-            toast.success("Copied to clipboard!");
+            toast.success("کپی شد");
         } catch (err) {
-            console.error('Failed to copy:', err);
+            console.error('ناموفق', err);
         }
         // const text = item?.items;
         // if (navigator.clipboard?.writeText) {
@@ -199,7 +198,7 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
 
     useEffect(() => {
         if (!userName) handleUser();
-        reload();
+        // reload();
     }, [userName]);
 
     useEffect(() => {
@@ -227,108 +226,114 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
         if (addByKey) insertItem(activeList);
     }, [addByKey]);
 
+    useEffect(() => {
+        setIsOpen(false);
+    }, []);
+
     return (
-        <div className="center-div-col">
+        <div style={{ backgroundColor: 'gray' }}>
             <table id="items">
                 <tr>
-                    <th className="d-flex w-100 justify-content-center">
-                        {/*<div className="row w-100">*/}
-                        <div className="d-flex w-100 justify-content-center">
-                            {/*<div>*/}
-                            <Dropdown
-                                className="listButton"
-                                disabled={isLoading}
-                                isOpen={actionDropdownOpen}
-                                toggle={() => setActionDropdownOpen(!actionDropdownOpen)}>
-                                <DropdownToggle className="dropdown-toggle-custom" style={{
-                                    backgroundColor: 'transparent',
-                                    borderColor: 'transparent',
-                                    color: 'white',
-                                    width: '100%'
-                                }} caret>
-                                    &#8942;
-                                </DropdownToggle>
+                    {false &&
+                        <th className="d-flex w-100 justify-content-center">
+                            {/*<div className="row w-100">*/}
 
-                                <DropdownMenu>
-                                    {/*<DropdownItem style={{textAlign: 'right', width: '100%', height: '14px'}}*/}
-                                    {/*              onClick={() => {*/}
-                                    {/*                  // setShowCategoryModal(true);*/}
-                                    {/*              }}>*/}
-                                    {/*    <p className="fa left-stick d-flex"*/}
-                                    {/*       style={{*/}
-                                    {/*           cursor: 'pointer',*/}
-                                    {/*           fontSize: '12px',*/}
-                                    {/*           marginY: '5px',*/}
-                                    {/*           color: '#046'*/}
-                                    {/*       }}>&#xf1fb;&nbsp;*/}
-                                    {/*        <p style={{textAlign: 'center'}}>{'ویرایش لیست'}</p>*/}
-                                    {/*    </p>*/}
-                                    {/*</DropdownItem>*/}
-                                    <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}>
-                                        <p className="fa left-stick d-flex"
-                                            style={{
-                                                cursor: 'pointer',
-                                                fontSize: '12px',
-                                                marginTop: '0px',
-                                                color: '#777'
-                                            }}
-                                            onClick={() => deleteCategory()}>&#xf1f8; &nbsp;
-                                            <p style={{ textAlign: 'center' }}>{' حذف لیست'}</p>
-                                            {/*&#94;&#xf014;*/}
-                                        </p>
-                                    </DropdownItem>
+                            <div className="d-flex w-100 justify-content-center">
+                                {/*<div>*/}
+                                <Dropdown
+                                    className="listButton"
+                                    disabled={isLoading}
+                                    isOpen={actionDropdownOpen}
+                                    toggle={() => setActionDropdownOpen(!actionDropdownOpen)}>
+                                    <DropdownToggle className="dropdown-toggle-custom" style={{
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'transparent',
+                                        color: 'white',
+                                        width: '100%'
+                                    }} caret>
+                                        &#8942;
+                                    </DropdownToggle>
 
-                                    <DropdownItem divider />
+                                    <DropdownMenu>
+                                        {/*<DropdownItem style={{textAlign: 'right', width: '100%', height: '14px'}}*/}
+                                        {/*              onClick={() => {*/}
+                                        {/*                  // setShowCategoryModal(true);*/}
+                                        {/*              }}>*/}
+                                        {/*    <p className="fa left-stick d-flex"*/}
+                                        {/*       style={{*/}
+                                        {/*           cursor: 'pointer',*/}
+                                        {/*           fontSize: '12px',*/}
+                                        {/*           marginY: '5px',*/}
+                                        {/*           color: '#046'*/}
+                                        {/*       }}>&#xf1fb;&nbsp;*/}
+                                        {/*        <p style={{textAlign: 'center'}}>{'ویرایش لیست'}</p>*/}
+                                        {/*    </p>*/}
+                                        {/*</DropdownItem>*/}
+                                        <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}>
+                                            <p className="fa left-stick d-flex"
+                                                style={{
+                                                    cursor: 'pointer',
+                                                    fontSize: '12px',
+                                                    marginTop: '0px',
+                                                    color: '#777'
+                                                }}
+                                                onClick={() => deleteCategory()}>&#xf1f8; &nbsp;
+                                                <p style={{ textAlign: 'center' }}>{' حذف لیست'}</p>
+                                                {/*&#94;&#xf014;*/}
+                                            </p>
+                                        </DropdownItem>
 
-                                    <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
-                                        onClick={() => {
-                                            // setIsAddingMode(false);
-                                            setShowCategoryModal(true);
-                                        }}>
-                                        <p className="fa left-stick d-flex"
-                                            style={{
-                                                cursor: 'pointer',
-                                                fontSize: '12px',
-                                                marginTop: '0px',
-                                                color: '#777'
-                                            }}>&#xf067; &nbsp;
-                                            <p style={{ textAlign: 'center' }}>{' افزودن لیست '}</p>
-                                        </p>
-                                    </DropdownItem>
+                                        <DropdownItem divider />
 
-                                    <DropdownItem divider />
+                                        <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
+                                            onClick={() => {
+                                                // setIsAddingMode(false);
+                                                setShowCategoryModal(true);
+                                            }}>
+                                            <p className="fa left-stick d-flex"
+                                                style={{
+                                                    cursor: 'pointer',
+                                                    fontSize: '12px',
+                                                    marginTop: '0px',
+                                                    color: '#777'
+                                                }}>&#xf067; &nbsp;
+                                                <p style={{ textAlign: 'center' }}>{' افزودن لیست '}</p>
+                                            </p>
+                                        </DropdownItem>
 
-                                    <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
-                                        onClick={handleUser}>
-                                        <p className="fa left-stick d-flex"
-                                            style={{
-                                                cursor: 'pointer',
-                                                fontSize: '12px',
-                                                marginTop: '0px',
-                                                color: '#777'
-                                            }}>&#10006; &nbsp;
-                                            <p style={{ textAlign: 'center' }}>{'خروج'}</p>
-                                        </p>
-                                    </DropdownItem>
+                                        <DropdownItem divider />
 
-                                </DropdownMenu>
-                            </Dropdown>
+                                        <DropdownItem style={{ textAlign: 'right', width: '100%', height: '14px' }}
+                                            onClick={handleUser}>
+                                            <p className="fa left-stick d-flex"
+                                                style={{
+                                                    cursor: 'pointer',
+                                                    fontSize: '12px',
+                                                    marginTop: '0px',
+                                                    color: '#777'
+                                                }}>&#10006; &nbsp;
+                                                <p style={{ textAlign: 'center' }}>{'خروج'}</p>
+                                            </p>
+                                        </DropdownItem>
 
-                            <Dropdown
-                                className="listInput"
-                                disabled={isLoading}
-                                isOpen={dropdownOpen}
-                                toggle={() => setDropdownOpen(!dropdownOpen)}>
-                                <DropdownToggle style={{
-                                    backgroundColor: 'transparent',
-                                    borderColor: 'transparent',
-                                    color: '#777',
-                                    width: '250px'
-                                }} caret>
-                                    {activeList}
-                                </DropdownToggle>
-                                <DropdownMenu className="w-100">
-                                    {categoryList && categoryList.length > 0 && categoryList.map((item, index) =>
+                                    </DropdownMenu>
+                                </Dropdown>
+
+                                <Dropdown
+                                    className="listInput"
+                                    disabled={isLoading}
+                                    isOpen={dropdownOpen}
+                                    toggle={() => setDropdownOpen(!dropdownOpen)}>
+                                    <DropdownToggle style={{
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'transparent',
+                                        color: '#777',
+                                        width: '250px'
+                                    }} caret>
+                                        {activeList}
+                                    </DropdownToggle>
+                                    <DropdownMenu className="w-100">
+                                        {/* {categoryList && categoryList.length > 0 && categoryList.map((item, index) =>
                                         <>
                                             <DropdownItem onClick={() => {
                                                 changeList(item);
@@ -336,25 +341,25 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
                                                 {item}
                                             </DropdownItem>
                                         </>
-                                    )}
-                                    {/*<DropdownItem divider/>*/}
-                                    {/*<DropdownItem onClick={() => {*/}
-                                    {/*    setShowCategoryModal(true);*/}
-                                    {/*}} style={{textAlign: 'right', color: '#046'}}>*/}
-                                    {/*    <div className="d-flex" style={{maxHeight: '25px'}}>*/}
-                                    {/*        <p style={{*/}
-                                    {/*            padding: '0px',*/}
-                                    {/*            textAlign: 'center',*/}
-                                    {/*            marginLeft: '12px',*/}
-                                    {/*            fontSize: '20px'*/}
-                                    {/*        }}>&#43;</p>*/}
-                                    {/*        <p style={{textAlign: 'center'}}>{'افزودن'}</p>*/}
-                                    {/*    </div>*/}
-                                    {/*</DropdownItem>*/}
-                                </DropdownMenu>
-                            </Dropdown>
-                            {/*</div>*/}
-                            {/* <div style={{ width: '50px' }}>
+                                    )} */}
+                                        {/*<DropdownItem divider/>*/}
+                                        {/*<DropdownItem onClick={() => {*/}
+                                        {/*    setShowCategoryModal(true);*/}
+                                        {/*}} style={{textAlign: 'right', color: '#046'}}>*/}
+                                        {/*    <div className="d-flex" style={{maxHeight: '25px'}}>*/}
+                                        {/*        <p style={{*/}
+                                        {/*            padding: '0px',*/}
+                                        {/*            textAlign: 'center',*/}
+                                        {/*            marginLeft: '12px',*/}
+                                        {/*            fontSize: '20px'*/}
+                                        {/*        }}>&#43;</p>*/}
+                                        {/*        <p style={{textAlign: 'center'}}>{'افزودن'}</p>*/}
+                                        {/*    </div>*/}
+                                        {/*</DropdownItem>*/}
+                                    </DropdownMenu>
+                                </Dropdown>
+                                {/*</div>*/}
+                                {/* <div style={{ width: '50px' }}>
                                         <button
                                             // onClick={() => {
                                             //     setIsPrimary(!isPrimary)
@@ -370,9 +375,11 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
                                             }
                                         </button>
                                     </div> */}
-                        </div>
-                        {/*</div>*/}
-                    </th>
+                            </div>
+
+                            {/*</div>*/}
+                        </th>
+                    }
                 </tr>
 
                 {isLoading &&
@@ -476,7 +483,7 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
                 {/*</ReactPullToRefresh>*/}
             </table>
 
-            {<div style={{ position: 'relative', width: '100%' }}>
+            {<div style={{ position: 'relative', width: '100%', height: '25vh' }}>
                 <div className={`transition-wrapper ${isAddingMode ? 'show' : 'hide'}`}>
                     <div className="center-div" style={{ width: '100%', padding: '0 24px' }}>
                         <button

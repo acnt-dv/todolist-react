@@ -5,6 +5,8 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 import { Tasks } from "./Tasks";
+import HamburgerMenu from "./HamburgerMenu";
+import { Categories } from "./Categories";
 
 function Home() {
     const addingItems = "ADD_ING_INPUT_S";
@@ -19,6 +21,10 @@ function Home() {
     const [isAddingMode, setIsAddingMode] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [addByKey, setAddByKey] = useState(false);
+    const [activeList, setActiveList] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+
+    const [showCategories, setShowCategories] = useState(true);
 
     function handleKeyPress(event) {
         if (event.charCode === 13) {
@@ -125,23 +131,89 @@ function Home() {
         }
     }, []);
 
+    function firstLoad(category) {
+        async function getCategoryList() {
+            let categories = [];
+            let list = JSON.parse(await getLists())?.data;
+            list.forEach(item => {
+                if (Object.values(item)?.[0].includes(userName)) {
+                    categories.push(Object.values(item)?.[0]?.replace(`${userName}`, ``));
+                }
+            });
+            if (category) {
+                let active = categories.find(x => x === category);
+                setCategoryList(categories);
+                setActiveList(active);
+                return active
+            }
+            let firstItem = categories?.[0];
+            setCategoryList(categories);
+            setActiveList(firstItem);
+            return firstItem;
+        }
+
+        // setIsAddingMode(false);
+        setIsLoading(true);
+        try {
+            getCategoryList().then((firstItem) => updateList(firstItem).then(() => setIsLoading(false)));
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+
     return (
-        <div className="center-div" onClick={(e) => handleMouseClicked(e)} onKeyPress={(e) => {
+        <div className="center-div" style={{overflow: "hidden"}} onClick={(e) => handleMouseClicked(e)} onKeyPress={(e) => {
             handleKeyPress(e);
         }}>
-            {isLoggedIn &&
-                <Tasks
-                    addingItems={addingItems}
-                    userName={userCategory}
-                    refresh={refresh}
-                    setRefresh={setRefresh}
-                    handleUser={handleUser}
-                    isAddingMode={isAddingMode}
-                    setIsAddingMode={setIsAddingMode}
-                    addByKey={addByKey}
-                    setAddByKey={setAddByKey}
-                />
+            {!loginModal && !signupModal &&
+                <div style={{ width: '100%', backgroundColor: 'white', display: 'grid', justifyContent: 'end', alignItems: 'center' }}>
+                    <div style={{ minWidth: '100vw', backgroundColor: 'gray', height: '75px', display: 'grid', justifyContent: 'start', alignItems: 'center' }}>
+                        <HamburgerMenu
+                            handleUser={handleUser}
+                            setShowCategories={setShowCategories}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                        />
+                    </div>
+                    {isLoggedIn && showCategories &&
+                        <Categories
+                            addingItems={addingItems}
+                            userName={userCategory}
+                            refresh={refresh}
+                            setRefresh={setRefresh}
+                            handleUser={handleUser}
+                            isAddingMode={isAddingMode}
+                            setIsAddingMode={setIsAddingMode}
+                            addByKey={addByKey}
+                            setAddByKey={setAddByKey}
+                            activeList={activeList}
+                            setActiveList={setActiveList}
+                            setShowCategories={setShowCategories}
+                        />
+                    }
+                    {isLoggedIn && !showCategories &&
+                        <Tasks
+                            addingItems={addingItems}
+                            userName={userCategory}
+                            refresh={refresh}
+                            setRefresh={setRefresh}
+                            handleUser={handleUser}
+                            isAddingMode={isAddingMode}
+                            setIsAddingMode={setIsAddingMode}
+                            addByKey={addByKey}
+                            setAddByKey={setAddByKey}
+                            activeList={activeList}
+                            setActiveList={setActiveList}
+                            setIsOpen={setIsOpen}
+                        />
+                    }
+
+                </div>
             }
+
             {loginModal &&
                 <Login
                     onSignup={onSignup}
