@@ -1,7 +1,7 @@
 function Signup({ handleSignUp, onLogin, username, setUsername, password, setPassword, msg }) {
 
     return (
-        <div style={{ padding: '16px', width: '100%', height: '100vh', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ padding: '16px', width: '100%', height: '100vh', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', direction: 'ltr' }}>
             <div style={{ display: 'grid', width: '100%', maxWidth: '480px' }}>
                 <h2>Sign Up</h2>
                 <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ marginBottom: '8px', textAlign: 'left', backgroundColor: 'whitesmoke' }} />
