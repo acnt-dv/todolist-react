@@ -487,7 +487,7 @@ export const Tasks = ({ addingItems, userName, refresh, setRefresh, handleUser, 
 
             {<div style={{ position: 'relative', width: '100%', height: '25vh' }}>
                 <div className={`transition-wrapper ${isAddingMode ? 'show' : 'hide'}`}>
-                    <div className="center-div" style={{ width: '100%', padding: '0 24px' }}>
+                    <div className="center-div" style={{ width: '100%', minHeight: '50px', alignItems: 'center', padding: '0 24px' }}>
                         <button
                             className="addItemButton"
                             name={addingItems}

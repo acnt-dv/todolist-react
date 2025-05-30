@@ -249,7 +249,7 @@
 }
 
 .categoryPlusBtn {
-   transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
     opacity: 1;
     width: 50px;
     aspect-ratio: 1 / 1;
@@ -433,4 +433,10 @@ button {
 
 .dropdown-toggle-custom::after {
     display: none !important;
+}
+
+/* Solid border */
+hr.solid {
+    border-top: 3px solid #bbb;
+    margin: 14px;
 }
