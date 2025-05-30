@@ -177,8 +177,7 @@ function Home() {
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                         />
-                        <button style={{marginLeft: '18px', backgroundColor: 'transparent', fontSize: '36px'}} onClick={()=> {setShowCategories(true)}}>&#11013;</button>
-                    </div>
+                        <button style={{marginLeft: '18px', backgroundColor: 'transparent', fontSize: '36px'}} onClick={()=> {setShowCategories(true)}}>&#8592;</button>                    </div>
                     {isLoggedIn && showCategories &&
                         <Categories
                             addingItems={addingItems}
