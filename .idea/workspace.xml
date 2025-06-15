@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf097bc2-07b2-4658-847f-83135e7f15ad" name="Default Changelist" comment="server fixed.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-    </list>
+    <list default="true" id="bf097bc2-07b2-4658-847f-83135e7f15ad" name="Default Changelist" comment="develop mode." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,7 +135,7 @@
       <workItem from="1714999338871" duration="1038000" />
       <workItem from="1716296641805" duration="106000" />
       <workItem from="1719041801729" duration="493000" />
-      <workItem from="1750012288401" duration="472000" />
+      <workItem from="1750012288401" duration="829000" />
     </task>
     <task id="LOCAL-00001" summary="Major improvements in categories&#10;Improvements in UI/UX">
       <created>1695490134416</created>
@@ -287,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714999445480</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="develop mode.">
+      <option name="closed" value="true" />
+      <created>1750012910579</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1750012910579</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,100 +318,7 @@
     <MESSAGE value="minor UI improvements." />
     <MESSAGE value="minor improvements." />
     <MESSAGE value="server fixed." />
-    <option name="LAST_COMMIT_MESSAGE" value="server fixed." />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="854" y="1459" key="#Notifications" timestamp="1712667677516">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state x="854" y="1459" key="#Notifications/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712667677516" />
-    <state x="435" y="1267" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1712651737970">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state x="435" y="1267" key="#com.intellij.execution.impl.EditConfigurationsDialog/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712651737970" />
-    <state x="690" y="263" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1714999773892">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="690" y="263" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/9.1080.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1714999773892" />
-    <state x="585" y="81" key="CommitChangelistDialog2" timestamp="1714999759993">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="277" y="114" key="CommitChangelistDialog2/0.0.1920.1032@0.0.1920.1032" timestamp="1712843542939" />
-    <state x="585" y="81" key="CommitChangelistDialog2/9.1080.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1714999759993" />
-    <state x="286" y="1194" key="CommitChangelistDialog2/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1713182500318" />
-    <state x="110" y="104" key="DiffContextDialog" timestamp="1714999759428">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="110" y="104" key="DiffContextDialog/9.1080.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1714999759428" />
-    <state x="119" y="1184" key="DiffContextDialog/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712666703653" />
-    <state x="761" y="1367" key="FileChooserDialogImpl" timestamp="1719042297308">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state x="761" y="1367" key="FileChooserDialogImpl/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1719042297308" />
-    <state width="1882" height="332" key="GridCell.Tab.0.bottom" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.0.bottom/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.0.center" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.0.center/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.0.left" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.0.left/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.0.right" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.0.right/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.1.bottom" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.1.bottom/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.1.center" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.1.center/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.1.left" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.1.left/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.1.right" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.1.right/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.2.bottom" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.2.bottom/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.2.center" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.2.center/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.2.left" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.2.left/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state width="1882" height="332" key="GridCell.Tab.2.right" timestamp="1712668007781">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state width="1882" height="332" key="GridCell.Tab.2.right/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1712668007781" />
-    <state x="552" y="249" key="Vcs.Push.Dialog.v2" timestamp="1714999449256">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="552" y="249" key="Vcs.Push.Dialog.v2/0.0.1920.1032@0.0.1920.1032" timestamp="1712843546184" />
-    <state x="552" y="249" key="Vcs.Push.Dialog.v2/9.1080.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1714999449256" />
-    <state x="561" y="1329" key="Vcs.Push.Dialog.v2/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1713182565923" />
-    <state x="676" y="1311" width="585" height="801" key="find.popup" timestamp="1713099559360">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1712842959870" />
-    <state x="667" y="249" width="585" height="534" key="find.popup/9.1080.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1712650349056" />
-    <state x="676" y="1311" width="585" height="801" key="find.popup/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1713099559360" />
-    <state x="625" y="1318" width="672" height="677" key="run.anything.popup" timestamp="1713180669894">
-      <screen x="9" y="1080" width="1920" height="1032" />
-    </state>
-    <state x="616" y="238" key="run.anything.popup/9.1080.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1713006719059" />
-    <state x="625" y="1318" width="672" height="677" key="run.anything.popup/9.1080.1920.1032/0.0.1920.1032@9.1080.1920.1032" timestamp="1713180669894" />
+    <MESSAGE value="develop mode." />
+    <option name="LAST_COMMIT_MESSAGE" value="develop mode." />
   </component>
 </project>
