@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf097bc2-07b2-4658-847f-83135e7f15ad" name="Default Changelist" comment="develop mode.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-    </list>
+    <list default="true" id="bf097bc2-07b2-4658-847f-83135e7f15ad" name="Default Changelist" comment="pull back" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,7 +135,7 @@
       <workItem from="1714999338871" duration="1038000" />
       <workItem from="1716296641805" duration="106000" />
       <workItem from="1719041801729" duration="493000" />
-      <workItem from="1750012288401" duration="4559000" />
+      <workItem from="1750012288401" duration="5233000" />
     </task>
     <task id="LOCAL-00001" summary="Major improvements in categories&#10;Improvements in UI/UX">
       <created>1695490134416</created>
@@ -303,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750013307383</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="pull back">
+      <option name="closed" value="true" />
+      <created>1750792121303</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1750792121303</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,6 +335,7 @@
     <MESSAGE value="minor improvements." />
     <MESSAGE value="server fixed." />
     <MESSAGE value="develop mode." />
-    <option name="LAST_COMMIT_MESSAGE" value="develop mode." />
+    <MESSAGE value="pull back" />
+    <option name="LAST_COMMIT_MESSAGE" value="pull back" />
   </component>
 </project>
